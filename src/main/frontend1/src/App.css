@@ -1,0 +1,39 @@
+.header {
+  display: flex; /* Flexbox 사용 */
+  flex-direction: column; /* 세로 정렬 */
+  align-items: center; /* 가운데 정렬 */
+  position: relative; /* 자식 요소의 절대 위치 설정을 위한 상대 위치 설정 */
+  z-index: 1000; /* 다른 요소 위에 위치하게 설정 */
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; /* 양 끝 정렬 */
+  max-width: 1200px;
+  padding: 10px 20px;
+  position: absolute;
+}
+
+.header-content>h1{
+  margin-left: -1000px;
+  position: relative; /* 위치 조정 시 상대적 위치 설정 */
+  margin-top: 20px;
+}
+
+.auth-links {
+  display: flex;
+  margin-right: -1000px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.auth-links span {
+  margin-left: 15px;
+  cursor: pointer;
+  color: #054283;
+}
+
+.auth-links span:hover {
+  text-decoration: underline;
+}
