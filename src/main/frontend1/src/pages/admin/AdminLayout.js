@@ -56,13 +56,15 @@ const AdminLayout = () => {
       <div className='adminLayout-content'>
         <div className='side-menu'>
           {adminMenu.map((menu, index) => (
-            <div key={index} className="menu-title">
+            <div key={index} className="menu-titles">
               <div
                 className={`menu-title ${isShow === index ? 'active' : ''}`}
                 onClick={() => clickMenu(index, menu.path)}
               >
-                {menu.title}
-                <span><i className="bi bi-caret-down-fill"></i></span>
+                <div className='menu-title-content'>
+                  {menu.title}
+                  <span><i className="bi bi-caret-down-fill"></i></span>
+                </div>
               </div>
               {isShow === index && (
                 <div className='dropdown-menu'>
