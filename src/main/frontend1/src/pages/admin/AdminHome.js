@@ -1,8 +1,14 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const AdminHome = () => {
   return (
-    <div>AdminHome</div>
+    <div >
+      <div>dd</div>
+      <div className='side-menu'>
+        <Outlet />
+      </div>
+    </div>
   )
 }
 
