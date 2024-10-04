@@ -1,61 +1,58 @@
-.adminLayout > div:first-child{
-   height: 85vh;
+.adminLayout{
+   margin: 100px 50px;
+   height: 90vh;
+   border: 1px solid #A1BDED;
+   border-radius: 10px;
+   box-shadow: 3px 2px 5px 1px  #49698d80;
 }
+
 .adminLayout-content{
    display: flex;
 }
 
 .side-menu{
-   margin-top: 20px;
-   padding-right: 20px;
-   width: 20%;
-   display: flex;
-   gap: 15px;
-   flex-direction: column;
-   align-items: end;
+   width: 300px;
+   height: 89.8vh;
+   background-color: #CEDAFD;
+   border-top-left-radius: 9px;
+   border-bottom-left-radius: 9px;
+   
 }
-
+.menu-titles{
+   border-bottom: 1px solid #A1BDED;
+   margin: 10px 5px;
+   
+}
 .menu-title{
-   width: 180px;
-   color: #0b5f79;
-   display: flex;
-   flex-direction: column;
-}
-
-.menu-title > div{
-   width: 100%;
-   padding: 7px 10px;
-   color: #0b5f79;
-   border: 2px solid #0b5f79;
-   border-radius: 10px;
-   font-size: 1.2rem;
-   font-weight: 600;
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
+   margin: 13px ;
+   font-size: 20px;
    cursor: pointer;
 }
-.menu-title > span{
-   color: black;
-   font-size: 1.4rem;
+.menu-title-content {
+   color: #2B4358;
+   display: flex;
+   justify-content: space-between; 
+   align-items: center;
 }
 
-.menu-title .dropdown-menu{
-   border: none;
+.menu-title-content span {
+   margin-left: auto;
 }
 
-.menu-title .dropdown-menu li{
-   width: 100%;
-   font-size: 1.1rem;
-   font-weight: 500;
-   padding: 10px 10px 0px 10px;
-   color: gray;
+.menu-title-content:hover,
+.dropdown-menu li:hover{
+   color: #6A8CBB;
+}
+
+.dropdown-menu{
+   margin: 10px 20px;
+   color: #46668A;
+   font-size: 15px;
    cursor: pointer;
 }
-.menu-title .dropdown-menu li:hover{
-   color: #0b5f79;
+.dropdown-menu li{
+   margin: 5px 0px;
 }
-
-.main-menu {
-   width: 80%;
+.main-menu{
+   margin: 15px;
 }
