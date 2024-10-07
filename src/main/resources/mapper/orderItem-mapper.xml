@@ -10,8 +10,8 @@
         <result column="DEPART_TIME" property="departTime"/>
         <result column="ARRIVE_TIME" property="arriveTime"/>
         <association property="supVO" resultMap="supMapper.sup"/>
-        <association property="itemTypeVO" resultMap="supMapper.itemType"/>
-        <association property="itemVO" resultMap="supMapper.item"/>
+        <association property="typeVO" resultMap="itemMapper.type"/>
+        <association property="itemVO" resultMap="itemMapper.item"/>
         <association property="deliverVO" resultMap="deliver"/>
     </resultMap>
 
@@ -51,6 +51,20 @@
         ORDER BY T.TYPE_NAME;
 
     </select>
+
+    <!-- 월별 매출량 계산 -->
+    <select id="getMonthSales">
+        SELECT
+            DATE_FORMAT(O.ORDER_DATE, '%Y-%m') AS month,
+            SUM(O.ORDER_CNT * I.PRICE) AS total_sales
+        FROM ORDER_ITEM O
+        JOIN ITEM I ON O.ITEM_NUM = I.ITEM_NUM
+        GROUP BY month
+        ORDER BY month;
+    </select>
+
+
+
 
 
 
