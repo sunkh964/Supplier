@@ -34,9 +34,25 @@ useEffect(() => {
     <div className="App">
       <div className='header'>
       <div className='auth-links'>
-          <span onClick={(e)=>{navigaite('login')}}>로그인</span>
-          <span> | </span>
-          <span onClick={(e)=>{navigaite('join')}}>회원가입</span>
+      {
+  Object.keys(loginInfo).length === 0 ? (
+    <>
+      <span onClick={() => { navigaite('login'); }}>로그인</span>
+      <span> | </span>
+      <span onClick={() => { navigaite('join'); }}>회원가입</span>
+    </>
+  ) : (
+    <>
+      <span>{loginInfo.supmName}님 반갑습니다</span>
+      <span> | </span>
+      <span onClick={() => {
+        window.sessionStorage.removeItem('loginInfo');
+        setLoginInfo({});
+        navigaite('/');
+      }}>로그아웃</span>
+    </>
+  )
+}
         </div>
         <div className='header-content'>
           <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
