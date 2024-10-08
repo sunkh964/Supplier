@@ -11,6 +11,7 @@ import ShipManage from './pages/admin/shipManage/ShipManage';
 import ItemManage from './pages/admin/itemManage/ItemManage';
 import AddItem from './pages/admin/itemManage/AddItem';
 import SalesManage from './pages/admin/salesManage/SalesManage';
+import ShipItemManage from './pages/admin/shipManage/ShipItemManage';
 
 function App() {
   const navigaite=useNavigate();
@@ -39,6 +40,7 @@ function App() {
             <Route path='orderManage' element={<OrderManage />} />
             <Route path='cusList' element={<CusList />} />
             <Route path='shipManage' element={<ShipManage />} />
+            <Route path='shipItemManage' element={<ShipItemManage />} />
             <Route path='itemManage' element={<ItemManage />} />
             <Route path='addItem' element={<AddItem />} />
             <Route path='salesManage' element={<SalesManage />} />

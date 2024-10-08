@@ -8,8 +8,9 @@ public class OrderDetailVO {
     private int detailNum;
     private int orderCnt;
     private int itemNum;
-    private ItemVO itemVO;
     private int detailPrice;
     private int orderNum;
-    private OrderItemVO orderItemVO;
+    private int deliNum;
+    private ItemVO itemVO;
+    private DeliverVO deliverVO;
 }

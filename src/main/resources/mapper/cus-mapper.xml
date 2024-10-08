@@ -4,7 +4,7 @@
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
 <mapper namespace="cusMapper">
     <resultMap id="cus" type="com.green.Supplier.cus.vo.CusVO">
-        <id column="CUS_NUM" property="supNum"/>
+        <id column="CUS_NUM" property="cusNum"/>
         <result column="CUS_NAME" property="cusName"/>
         <result column="CUS_ADDR" property="cusAddr"/>
         <result column="CUS_TEL" property="cusTel"/>

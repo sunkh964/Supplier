@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./ShipManage.css"
+import axios from 'axios';
 
 const ShipManage = () => {
+
+  // 주문서 저장
+  const [orderList, setOrderList] = useState([]);
+
+  // 주문서 리스트 불러오기
+  useEffect(() => {
+    axios.get(`/orderItem/getOrderList`)
+    .then((res) => {
+      setOrderList(res.data);
+    })
+    .catch((error) => {alert(error);});
+  }, []);
+
   return (
     <div className='ship-container'>
       <div className='top-div'>
@@ -49,28 +63,24 @@ const ShipManage = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td><button type='button' className='cancel-order'>주문 취소</button></td>
-              <td><button type='button'>배송 시작</button></td>
-            </tr>
-            <tr>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td><button type='button' className='cancel-order'>주문 취소</button></td>
-              <td><button type='button'>배송 시작</button></td>
-            </tr>
+            {
+              orderList.map((order, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{order.orderNum}</td>
+                    <td>{order.cusVO.cusName}</td>
+                    <td>{order.orderDate}</td>
+                    <td>{order.totalPrice.toLocaleString()}</td>
+                    <td>{order.cusVO.cusAddr}</td>
+                    <td>{order.cusVO.cusTel}</td>
+                    <td>{order.deliverVO.deliStatus}</td>
+                    
+                    <td><button type='button' className='cancel-order'>주문 취소</button></td>
+                    <td><button type='button'>배송 시작</button></td>
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
@@ -79,15 +89,3 @@ const ShipManage = () => {
 }
 
 export default ShipManage
-
-/*
-  리스트
-    검색) 주문날짜… 고객…
-    목록) 주문번호, 고객, 주문날짜, 총 가격, 주소, 연락처, 배송 완료 여부
-    버튼) 주문 취소, 배송 시작
-
-  개별
-    주문번호, 상품 타입, 이미지, 상품명, 재고 수(비교해서 빨강), 주문수량, 개당 가격, 상품 별 총 가격, 주문 시간, 배송 출발 시간, 도착 시간, 배송현황
-    버튼) 주문 취소, 배송 시작
-
-*/
