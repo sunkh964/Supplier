@@ -72,4 +72,11 @@
         GROUP BY month
         ORDER BY month;
     </select>
+
+
+
+    <select id="getMonthsales" resultMap="orderItem">
+        SELECT TOTAL_PRICE
+        FROM ORDER_ITEM
+    </select>
 </mapper>
