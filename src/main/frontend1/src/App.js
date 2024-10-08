@@ -14,9 +14,22 @@ import SalesManage from './pages/admin/salesManage/SalesManage';
 import Login from './pages/user/Login';
 import Join from './pages/user/Join';
 import Cart from './pages/user/Cart';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const navigaite=useNavigate();
+
+const navigaite=useNavigate();
+
+const [loginInfo, setLoginInfo] = useState({});
+useEffect(() => {
+  const sessionLoginInfo = window.sessionStorage.getItem('loginInfo');
+
+  if (sessionLoginInfo != null) {
+    const obj_loginInfo = JSON.parse(sessionLoginInfo);
+    setLoginInfo(obj_loginInfo);
+  }
+}, []);
+
   return (
     <div className="App">
       <div className='header'>
@@ -35,7 +48,8 @@ function App() {
           {/* 홈 화면 */}
           <Route path='/' element={<UserLayout />}>
             <Route path='' element={<UserHome />} />
-            <Route path='login' element={<Login/>}/>
+            <Route path='login' element={<Login setLoginInfo={setLoginInfo} 
+              loginInfo={loginInfo} />}/>
             <Route path='join' element={<Join/>}/>
             <Route path='cart' element={<Cart/>}/>
           </Route>

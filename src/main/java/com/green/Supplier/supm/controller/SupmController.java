@@ -24,4 +24,9 @@ public class SupmController {
         return supmService.isDuplicate(inputId);
     }
 
+//    로그인
+    @PostMapping("/login")
+    public SupmVO login(@RequestBody SupmVO supmVO){
+        return supmService.login(supmVO);
+    }
 }

@@ -22,4 +22,10 @@ public class SupmServiceImpl implements SupmService{
         String id=sqlSession.selectOne("supmMapper.isDuplicate", supmId);
         return id!=null;
     }
+
+//    로그인
+    @Override
+    public SupmVO login(SupmVO supmVO) {
+        return sqlSession.selectOne("supmMapper.login", supmVO);
+    }
 }

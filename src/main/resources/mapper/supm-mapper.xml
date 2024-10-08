@@ -34,16 +34,19 @@
         );
     </insert>
 
+<!--    회원가입 아이디 중복 확인-->
     <select id="isDuplicate" resultType="String">
         SELECT SUPM_ID
         FROM SUP_MEMBER
         WHERE SUPM_ID=#{supmId}
     </select>
 
+    <select id="login" resultMap="supm">
+        SELECT SUPM_ID, SUPM_NAME, SUPM_NUM
+        FROM SUP_MEMBER
+    </select>
 
 </mapper>
-
-
 
 
 

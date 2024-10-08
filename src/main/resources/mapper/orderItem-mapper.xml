@@ -19,6 +19,7 @@
         <result column="TOTAL_AMOUNT" property="totalAmount"/>
     </resultMap>
 
+
     <resultMap id="deliver" type="com.green.Supplier.orderItem.vo.DeliverVO">
         <result column="DELI_NUM" property="deliNum"/>
         <result column="DELI_STATUS" property="deliStatus"/>
