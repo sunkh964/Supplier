@@ -13,37 +13,4 @@
         <result column="SUPM_ID" property="supmId"/>
         <result column="SUPM_PW" property="supmPw"/>
     </resultMap>
-
-
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

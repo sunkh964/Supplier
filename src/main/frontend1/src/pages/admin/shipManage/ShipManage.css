@@ -1,28 +1,73 @@
-.top-div > div{
-   display: flex;
-   flex-direction: row;
-   justify-content: end;
+.ship-container {
    width: 100%;
-   border: 1px solid black;
+   padding: 20px;
+   box-sizing: border-box;
+   flex-direction: column;
 }
 
-.sort-div {
+.top-div, .table-div {
+   width: 100%;
+}
+
+.top-div {
    display: flex;
+   flex-direction: column;
+   margin-bottom: 20px; /* 보고 조정 좀 */
 }
 
+.row {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.sort-div { display: flex; }
+.sort-div:nth-child(2) { margin-top: 10px; }
+
+.search-div {
+   display: flex;
+   align-items: center;
+}
+
+.search-div select, .search-div input{
+   margin-right: 5px;
+   padding: 5px 10px;
+}
+
+/* 라디오 버튼 */
 .radio-btn {
    margin-right: 10px;
    display: flex;
    width: 150px;
 }
 
-.radio-btn input[type=radio] {
-   display: none;
+.ship-container input[type=text], .ship-container select {
+   border: none;
+   border-bottom: 2px solid #CEDAFD;
 }
 
+.ship-container button  {
+   background-color: #CEDAFD;
+   border: none;
+   border-radius: 3px;
+   padding: 5px 10px;
+   color: #46668A;
+}
+
+.cancel-order {
+   background-color: #FFDACA !important;
+   color: #B43127 !important;
+}
+
+.cancel-order:hover {
+   background-color: #ffbc9f !important;
+}
+
+.radio-btn input[type=radio] { display: none; }
+
 .radio-btn label {
-   border-radius: 10px;
-   border: 3px solid #ccc;
+   border-radius: 3px;
+   border: 2px solid #ccc;
    width: 100%;
    height: 100%;
    text-align: center;
@@ -30,10 +75,65 @@
    color: #999;
 }
 
-/* Checked */
+/* -- 라디오 체크 시 */
 .radio-btn input[type=radio]:checked + label{
    background-color: #A1BDED;
-   border: 3px solid #A1BDED;
+   border: 2px solid #A1BDED;
    color: #184DA0;
    font-weight: 600;
+}
+
+/* 배송 완료 제외 체크박스 */
+#after-deliver { display: none; }
+#after-deliver+label { color: #999;
+   /* border: 1px solid #000; */
+}
+
+#after-deliver + label:before{
+   content: "";
+   display: inline-block;
+   width: 15px;
+   height: 15px;
+   border: 2px solid #999;
+   margin: 0px 5px 4px 5px;
+   border-radius: 3px;
+   vertical-align: middle;
+}
+
+.ship-container #after-deliver:hover, .ship-container label:hover, .ship-container button, .ship-container input[type=radio], .ship-container select { cursor: pointer; }
+
+.ship-container button:hover {
+   background-color: #A1BDED;
+}
+
+/* -- 체크박스 체크 시 */  
+#after-deliver:checked + label:before{
+   background-color:#F38E76;
+   border: 2px solid #F38E76 !important;
+   background-image: url("http://localhost:8081/images/check-lg.svg");
+   background-position: center;
+}
+
+/* 테이블 */
+.table-div table { width: 100%; }
+
+.table-div td {
+   text-align: center;
+   padding: 5px 15px;
+}
+
+.table-div tbody tr:hover {
+   background-color: #f3f3f3;
+}
+
+.table-div thead td {
+   border-top: 2px solid #E1E7FF;
+   border-bottom: 2px solid #E1E7FF;
+   background-color: #F2F4FF;
+   height: 40px;
+   vertical-align: middle;
+}
+
+.table-div tbody tr {
+   border-bottom: 2px solid #E8E9EE;
 }
