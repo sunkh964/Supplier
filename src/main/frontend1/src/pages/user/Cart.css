@@ -1,0 +1,56 @@
+.body-ca {
+  padding:1.5em;
+}
+
+.table {
+  border: 1px #8593a3 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 80%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: auto;
+}
+
+th {
+  text-align: left;
+}
+  
+.t-ca {
+  font-weight: bold;
+  color: #fff;
+  background: #56669c;
+}
+  
+td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+  text-align: center; /* 가운데 정렬 */
+}
+  
+td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+}
+
+a {
+  color: #73685d;
+}
+
+/* 버튼 */
+.btn1 {
+  background-color: #56669c;
+  border: none;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  margin-right: -1350px;
+}
+
+.btn1:hover {
+  background-color: #1b3672;
+}

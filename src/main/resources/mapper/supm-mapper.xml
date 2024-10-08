@@ -13,4 +13,39 @@
         <result column="SUPM_ID" property="supmId"/>
         <result column="SUPM_PW" property="supmPw"/>
     </resultMap>
+
+    <insert id="join">
+        INSERT INTO SUP_MEMBER (
+        SUPM_NUM
+        , SUPM_NAME
+        , SUPM_ADDR
+        , SUPM_BIRTH
+        , SUPM_TEL
+        , SUPM_ID
+        , SUPM_PW
+        ) VALUES (
+        #{supmNum}
+        , #{supmName}
+        , #{supmAddr}
+        , "1111"
+        , #{supmTel}
+        , #{supmId}
+        , #{supmPw}
+        );
+    </insert>
+
+<!--    회원가입 아이디 중복 확인-->
+    <select id="isDuplicate" resultType="String">
+        SELECT SUPM_ID
+        FROM SUP_MEMBER
+        WHERE SUPM_ID=#{supmId}
+    </select>
+
+    <select id="login" resultMap="supm">
+        SELECT SUPM_ID, SUPM_NAME, SUPM_NUM
+        FROM SUP_MEMBER
+        WHERE SUPM_ID = #{supmId}
+        AND SUPM_PW = #{supmPw}
+    </select>
+
 </mapper>

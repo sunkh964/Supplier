@@ -8,8 +8,6 @@ public class OrderItemVO {
     private int orderNum;
     private int totalPrice;
     private String orderDate;
-    private String departTime;
-    private String arriveTime;
     private int cusNum;
     private int deliNum;
     private CusVO cusVO;

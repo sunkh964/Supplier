@@ -7,8 +7,6 @@
         <id column="ORDER_NUM" property="orderNum"/>
         <result column="TOTAL_PRICE" property="totalPrice" />
         <result column="ORDER_DATE" property="orderDate"/>
-        <result column="DEPART_TIME" property="departTime"/>
-        <result column="ARRIVE_TIME" property="arriveTime"/>
         <association property="cusVO" resultMap="cusMapper.cus" />
         <association property="deliverVO" resultMap="deliver"/>
         <association property="orderDetailVO" resultMap="orderDetail"/>
@@ -30,6 +28,8 @@
         <result column="ITEM_NUM" property="itemNum" />
         <result column="DETAIL_PRICE" property="detailPrice" />
         <result column="ORDER_NUM" property="orderNum" />
+        <result column="DEPART_TIME" property="departTime"/>
+        <result column="ARRIVE_TIME" property="arriveTime"/>
         <association property="deliverVO" resultMap="deliver"/>
         <association property="itemVO" resultMap="itemMapper.item" />
     </resultMap>
