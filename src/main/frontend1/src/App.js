@@ -26,11 +26,7 @@ function App() {
           <span onClick={(e)=>{navigaite('join')}}>회원가입</span>
         </div>
         <div className='header-content'>
-<<<<<<< HEAD
           <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
-=======
-          <h1 onClick={()=>{navigaite('/')}}><i class="bi bi-capsule-pill"></i>그린카페 의약품 쇼핑몰</h1>
->>>>>>> nohk
         </div>
       </div>
       <div className='layout-div'>
