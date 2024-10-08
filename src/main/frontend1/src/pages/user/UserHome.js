@@ -11,13 +11,13 @@ const UserHome = () => {
             <h2>추천 제품</h2>
             <div className="product-list">
               <div className="product-card">
-                  {/* <img src={require('./images.png')} alt="제품 1" /> */}
+                  <img src={'http://localhost:8081/images/그림2.png'} alt="그림2" />
                   <h3>제품 이름 1</h3>
                   <p>제품 설명 1</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
               <div className="product-card">
-                  <img src="product2.jpg" alt="제품 2" />
+                  <img src={'http://localhost:8081/images/images.png'}  alt="제품 2" />
                   <h3>제품 이름 2</h3>
                   <p>제품 설명 2</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
