@@ -3,7 +3,7 @@
 
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
 <mapper namespace="orderItemMapper">
-    <resultMap id="orderItem" type="com.green.Team3.Supplier.vo.OrderItemVO">
+    <resultMap id="orderItem" type="com.green.Supplier.orderItem.vo.OrderItemVO">
         <id column="ORDER_NUM" property="orderNum"/>
         <result column="ORDER_CNT" property="orderCnt"/>
         <result column="ORDER_DATE" property="orderDate"/>
@@ -15,12 +15,12 @@
         <association property="deliverVO" resultMap="deliver"/>
     </resultMap>
 
-    <resultMap id="orderAmount" type="com.green.Team3.Supplier.vo.OrderAmountVO">
+    <resultMap id="orderAmount" type="com.green.Supplier.orderItem.vo.OrderAmountVO">
         <result column="TYPE_NAME" property="typeName"/>
         <result column="TOTAL_AMOUNT" property="totalAmount"/>
     </resultMap>
 
-    <resultMap id="deliver" type="com.green.Team3.Supplier.vo.DeliverVO">
+    <resultMap id="deliver" type="com.green.Supplier.orderItem.vo.DeliverVO">
         <result column="DELI_NUM" property="deliNum"/>
         <result column="DELI_STATUS" property="deliStatus"/>
     </resultMap>
