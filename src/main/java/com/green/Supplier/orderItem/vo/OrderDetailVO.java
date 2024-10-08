@@ -9,7 +9,10 @@ public class OrderDetailVO {
     private int orderCnt;
     private int itemNum;
     private ItemVO itemVO;
+    private String departTime;
+    private String arriveTime;
     private int detailPrice;
     private int orderNum;
     private OrderItemVO orderItemVO;
+    private DeliverVO deliverVO;
 }
