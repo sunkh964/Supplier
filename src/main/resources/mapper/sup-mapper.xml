@@ -7,37 +7,4 @@
         <id column="SUP_NUM" property="supNum"/>
         <result column="SUP_NAME" property="supName"/>
     </resultMap>
-
-
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

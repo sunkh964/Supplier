@@ -7,14 +7,12 @@ import lombok.Data;
 @Data
 public class OrderItemVO {
     private int orderNum;
-    private int orderCnt;
+    private int totalPrice;
     private String orderDate;
     private String departTime;
     private String arriveTime;
     private int cusNum;
-    private int itemNum;
     private int deliNum;
     private CusVO cusVO;
-    private ItemVO itemVO;
     private DeliverVO deliverVO;
 }

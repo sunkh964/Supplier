@@ -3,26 +3,35 @@
 
 <!-- 해당 파일에 모든 쿼리문을 작성 -->
 <mapper namespace="orderItemMapper">
-    <resultMap id="orderItem" type="com.green.Team3.Supplier.vo.OrderItemVO">
+    <resultMap id="orderItem" type="com.green.Supplier.vo.OrderItemVO">
         <id column="ORDER_NUM" property="orderNum"/>
-        <result column="ORDER_CNT" property="orderCnt"/>
+        <result column="TOTAL_PRICE" property="totalPrice" />
         <result column="ORDER_DATE" property="orderDate"/>
         <result column="DEPART_TIME" property="departTime"/>
         <result column="ARRIVE_TIME" property="arriveTime"/>
         <association property="supVO" resultMap="supMapper.sup"/>
         <association property="typeVO" resultMap="itemMapper.type"/>
-        <association property="itemVO" resultMap="itemMapper.item"/>
         <association property="deliverVO" resultMap="deliver"/>
     </resultMap>
 
-    <resultMap id="orderAmount" type="com.green.Team3.Supplier.vo.OrderAmountVO">
+    <resultMap id="orderAmount" type="com.green.Supplier.vo.OrderAmountVO">
         <result column="TYPE_NAME" property="typeName"/>
         <result column="TOTAL_AMOUNT" property="totalAmount"/>
     </resultMap>
 
-    <resultMap id="deliver" type="com.green.Team3.Supplier.vo.DeliverVO">
+    <resultMap id="deliver" type="com.green.Supplier.vo.DeliverVO">
         <result column="DELI_NUM" property="deliNum"/>
         <result column="DELI_STATUS" property="deliStatus"/>
+    </resultMap>
+
+    <resultMap id="orderDetail" type="com.green.Supplier.orderItem.vo.OrderDetailVO">
+        <id column="DETAIL_NUM" property="detailNum" />
+        <result column="ORDER_CNT" property="orderCnt" />
+        <result column="ITEM_NUM" property="itemNum" />
+        <result column="DETAIL_PRICE" property="detailPrice" />
+        <result column="ORDER_NUM" property="orderNum" />
+        <association property="itemVO" resultMap="itemMapper.item" />
+        <association property="orderItemVO" resultMap="orderItem" />
     </resultMap>
 
     <!-- 구입항목 가져오기 -->
@@ -49,7 +58,6 @@
 <!--        AND YEAR(I.ORDER_DATE) = YEAR(CURRENT_DATE())-->
         GROUP BY T.TYPE_NAME
         ORDER BY T.TYPE_NAME;
-
     </select>
 
     <!-- 월별 매출량 계산 -->
@@ -62,10 +70,4 @@
         GROUP BY month
         ORDER BY month;
     </select>
-
-
-
-
-
-
 </mapper>

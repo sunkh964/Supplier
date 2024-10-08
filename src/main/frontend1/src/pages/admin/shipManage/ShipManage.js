@@ -5,7 +5,8 @@ const ShipManage = () => {
   return (
     <div className='ship-container'>
       <div className='top-div'>
-        <div>
+        <div className='row'>
+            {/* 정렬 라디오 버튼 */}
           <div className='sort-div btn-div'>
             <div className='radio-btn'>
               <input type='radio' id='order-num-radio' name='sort-radio' className='radio' />
@@ -27,37 +28,51 @@ const ShipManage = () => {
           </div>
         </div>
         <div className='sort-div btn-div'>
-          <input type='checkbox' />
-          <span>배송 완료 제외</span>
+          <input type='checkbox' id='after-deliver' className='after-deliver' />
+          <label for='after-deliver'>배송 완료 제외</label>
         </div>
       </div>
+
       <div className='table-div'>
-        <thead>
-          <tr>
-            <td>주문번호</td>
-            <td>고객명</td>
-            <td>주문날짜</td>
-            <td>총 가격</td>
-            <td>주소</td>
-            <td>연락처</td>
-            <td>배송 완료 여부</td>
-            <td>주문 취소</td>
-            <td>배송 시작</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>주문번호</td>
-            <td>고객</td>
-            <td>주문날짜</td>
-            <td>총 가격</td>
-            <td>주소</td>
-            <td>연락처</td>
-            <td>배송 완료 여부</td>
-            <td>주문 취소</td>
-            <td>배송 시작</td>
-          </tr>
-        </tbody>
+        <table>
+          <thead>
+            <tr>
+              <td>주문번호</td>
+              <td>고객명</td>
+              <td>주문날짜</td>
+              <td>총 가격</td>
+              <td>주소</td>
+              <td>연락처</td>
+              <td>배송 완료 여부</td>
+              <td>주문 취소</td>
+              <td>배송 시작</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td><button type='button' className='cancel-order'>주문 취소</button></td>
+              <td><button type='button'>배송 시작</button></td>
+            </tr>
+            <tr>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td>123</td>
+              <td><button type='button' className='cancel-order'>주문 취소</button></td>
+              <td><button type='button'>배송 시작</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   )
