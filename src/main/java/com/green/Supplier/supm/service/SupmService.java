@@ -9,4 +9,7 @@ public interface SupmService {
 
 //    아이디 중복
     boolean isDuplicate(String supmId);
+
+//    로그인
+    SupmVO login (SupmVO supmVO);
 }

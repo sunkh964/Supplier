@@ -14,9 +14,22 @@ import SalesManage from './pages/admin/salesManage/SalesManage';
 import Login from './pages/user/Login';
 import Join from './pages/user/Join';
 import Cart from './pages/user/Cart';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const navigaite=useNavigate();
+
+const navigaite=useNavigate();
+
+const [loginInfo, setLoginInfo] = useState({});
+useEffect(() => {
+  const sessionLoginInfo = window.sessionStorage.getItem('loginInfo');
+
+  if (sessionLoginInfo != null) {
+    const obj_loginInfo = JSON.parse(sessionLoginInfo);
+    setLoginInfo(obj_loginInfo);
+  }
+}, []);
+
   return (
     <div className="App">
       <div className='header'>
@@ -26,11 +39,8 @@ function App() {
           <span onClick={(e)=>{navigaite('join')}}>회원가입</span>
         </div>
         <div className='header-content'>
-<<<<<<< HEAD
           <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
-=======
           <h1 onClick={()=>{navigaite('/')}}><i class="bi bi-capsule-pill"></i>그린카페 의약품 쇼핑몰</h1>
->>>>>>> nohk
         </div>
       </div>
       <div className='layout-div'>
@@ -38,7 +48,8 @@ function App() {
           {/* 홈 화면 */}
           <Route path='/' element={<UserLayout />}>
             <Route path='' element={<UserHome />} />
-            <Route path='login' element={<Login/>}/>
+            <Route path='login' element={<Login setLoginInfo={setLoginInfo} 
+              loginInfo={loginInfo} />}/>
             <Route path='join' element={<Join/>}/>
             <Route path='cart' element={<Cart/>}/>
           </Route>
