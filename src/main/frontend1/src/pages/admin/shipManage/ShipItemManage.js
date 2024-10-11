@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./ShipManage.css"
+import axios from 'axios';
 
 const ShipItemManage = () => {
+
+   // 주문품목 저장
+   const [orderDetailList, setOrderDetailList] = useState([]);
+
+   // 주문품목 불러오기
+   useEffect(() => {
+      axios.get(`/orderItem/getOrderDetailList`)
+      .then((res) => {
+         console.log(res.data);
+         setOrderDetailList(res.data);
+         console.log("@@@@@" + orderDetailList);
+      })
+      .catch((error) => {alert(error);});
+   }, []);
+
    return (
       <div className='ship-container'>
          <div className='top-div'>
@@ -78,15 +94,3 @@ const ShipItemManage = () => {
 }
 
 export default ShipItemManage
-
-   /*
-   리스트
-      검색) 주문날짜… 고객…
-      목록) 주문번호, 고객, 주문날짜, 총 가격, 주소, 연락처, 배송 완료 여부
-      버튼) 주문 취소, 배송 시작
-
-   개별
-      주문번호, 상품 타입, 이미지, 상품명, 재고 수(비교해서 빨강), 주문수량, 개당 가격, 상품 별 총 가격, 주문 시간, 배송 출발 시간, 도착 시간, 배송현황
-      버튼) 주문 취소, 배송 시작
-
-   */

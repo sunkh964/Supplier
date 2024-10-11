@@ -9,12 +9,38 @@ const ShipManage = () => {
 
   // 주문서 리스트 불러오기
   useEffect(() => {
-    axios.get(`/orderItem/getOrderList`)
+    axios.post(`/orderItem/getOrderList`, searchInfo)
     .then((res) => {
       setOrderList(res.data);
     })
     .catch((error) => {alert(error);});
   }, []);
+
+  // 검색 정보 기본값 저장
+  const [searchInfo, setSearchInfo] = useState({
+    searchType: 'cusName',
+    searchValue: ''
+  });
+
+// 검색 searchInfo onChange 함수
+const searchInfoChange = (e) => {
+  setSearchInfo({
+    ...searchInfo,
+    [e.target.name] : e.target.value
+  })
+};
+
+// 검색하기 버튼 함수
+const searchBtn = () => {
+    console.log("검색 실행");
+    axios.post(`/orderItem/getOrderList`, searchInfo)
+    .then((res) => {
+      console.log(searchInfo);
+      setOrderList(res.data);
+      console.log("검색 성공");
+    })
+    .catch((error) => {alert(error);});
+}
 
   return (
     <div className='ship-container'>
@@ -32,13 +58,13 @@ const ShipManage = () => {
             </div>
           </div>
           <div className='search-div'>
-            <select>
-              <option>주문일자</option>
-              <option>고객명</option>
-              <option>제품명</option>
+            <select onClick={(e) => {searchInfoChange(e);}}>
+              <option value="cusName">고객명</option>
+              <option value="orderDate">주문일자</option>
+              <option value="itemName">제품명</option>
             </select>
-            <input type='text'></input>
-            <button type='button'>검색</button>
+            <input type='text' name='searchValue' onChange={(e) => {searchInfoChange(e);}} />
+            <button type='button' onClick={() => {searchBtn();}}>검색</button>
           </div>
         </div>
         <div className='sort-div btn-div'>

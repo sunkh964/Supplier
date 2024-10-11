@@ -18,7 +18,7 @@
     </resultMap>
 
     <resultMap id="deliver" type="com.green.Supplier.orderItem.vo.DeliverVO">
-        <result column="DELI_NUM" property="deliNum"/>
+        <id column="DELI_NUM" property="deliNum"/>
         <result column="DELI_STATUS" property="deliStatus"/>
     </resultMap>
 
@@ -31,7 +31,9 @@
         <result column="DEPART_TIME" property="departTime"/>
         <result column="ARRIVE_TIME" property="arriveTime"/>
         <association property="deliverVO" resultMap="deliver"/>
+        <association property="typeVO" resultMap="itemMapper.type" />
         <association property="itemVO" resultMap="itemMapper.item" />
+        <association property="cusVO" resultMap="cusMapper.cus" />
     </resultMap>
 
     <!-- 공급사 주문서 목록 -->
@@ -42,6 +44,25 @@
             AND O.CUS_NUM = C.CUS_NUM
             AND I.ITEM_NUM = OD.ITEM_NUM
             AND O.DELI_NUM = D.DELI_NUM
+        <if test='searchValue != null and !searchValue.equals("")'>
+            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
+        ORDER BY O.ORDER_NUM DESC;
+    </select>
+
+    <!-- 공급사 개별상품주문 목록 -->
+    <select id="getOrderDetailList" resultMap="orderDetail">
+        SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.STOCK, OD.ORDER_CNT
+        , O.ORDER_DATE, OD.DEPART_TIME, OD.ARRIVE_TIME, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, D.DELI_NUM, D.DELI_STATUS
+        FROM cus C, item I, deliver D, order_item O, ORDER_DETAIL OD, item_type T
+        WHERE OD.ORDER_NUM = O.ORDER_NUM
+        AND I.TYPE_NUM = T.TYPE_NUM
+        AND O.CUS_NUM = C.CUS_NUM
+        AND I.ITEM_NUM = OD.ITEM_NUM
+        AND OD.DELI_NUM = D.DELI_NUM
+        <if test='searchValue != null and !searchValue.equals("")'>
+            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
         ORDER BY O.ORDER_NUM DESC;
     </select>
 </mapper>
