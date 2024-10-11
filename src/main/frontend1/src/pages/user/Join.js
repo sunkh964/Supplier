@@ -145,20 +145,20 @@ const Join = () => {
 
   return (
 <div className='body-lo'>
-  <div class="form-structor">
-    <div class="login">
-      <div class="center">
-        <h2 class="form-title" id="join">회원가입</h2>
-        <div class="form-holder">
-          <input type="text" name='supmId' onChange={(e)=>{changeJoinData(e)}} class="input" placeholder="아이디" />{validationErrors.supmId && <div className="error-message">{validationErrors.supmId}</div>}
-          <input type="password" name='supmPw' onChange={(e)=>{changeJoinData(e)}} class="input" placeholder="비밀번호" />{validationErrors.supmPw && <div className="error-message">{validationErrors.supmPw}</div>}
-        <input type="password" name='supmPw' onChange={(e)=>{changeJoinData(e)}} class="input" placeholder="비밀번호 확인" />
-        <input type="text" name='supmTel' onChange={(e)=>{changeJoinData(e)}} class="input" placeholder="전화번호" />{validationErrors.supmTel && <div className="error-message">{validationErrors.supmTel}</div>}
-        <input type="text" name='supmName' onChange={(e)=>{changeJoinData(e)}} class="input" placeholder="이름" />
-        <input type="text" name='supmAddr' onChange={(e)=>{changeJoinData(e)}} class="input" placeholder="주소" />{validationErrors.supmAddr && <div className="error-message">{validationErrors.supmAddr}</div>}
+  <div className="form-structor">
+    <div className="login">
+      <div className="center">
+        <h2 className="form-title" id="join">회원가입</h2>
+        <div className="form-holder">
+          <input type="text" name='supmId' onChange={(e)=>{changeJoinData(e)}} className="input" placeholder="아이디" />{validationErrors.supmId && <div className="error-message">{validationErrors.supmId}</div>}
+          <input type="password" name='supmPw' onChange={(e)=>{changeJoinData(e)}} className="input" placeholder="비밀번호" />{validationErrors.supmPw && <div className="error-message">{validationErrors.supmPw}</div>}
+        <input type="password" name='supmPw' onChange={(e)=>{changeJoinData(e)}} className="input" placeholder="비밀번호 확인" />
+        <input type="text" name='supmTel' onChange={(e)=>{changeJoinData(e)}} className="input" placeholder="전화번호" />{validationErrors.supmTel && <div className="error-message">{validationErrors.supmTel}</div>}
+        <input type="text" name='supmName' onChange={(e)=>{changeJoinData(e)}} className="input" placeholder="이름" />
+        <input type="text" name='supmAddr' onChange={(e)=>{changeJoinData(e)}} className="input" placeholder="주소" />{validationErrors.supmAddr && <div className="error-message">{validationErrors.supmAddr}</div>}
         </div>
-        <button class="submit-btn1" onClick={(e)=>{checkId(e)}}>아이디 중복확인</button>
-        <button class="submit-btn" type='button' disabled={isDisabled} onClick={(e)=>{join()}}>회원가입</button>
+        <button className="submit-btn1" onClick={(e)=>{checkId(e)}}>아이디 중복확인</button>
+        <button className="submit-btn" type='button' disabled={isDisabled} onClick={(e)=>{join()}}>회원가입</button>
       </div>
     </div>
   </div>

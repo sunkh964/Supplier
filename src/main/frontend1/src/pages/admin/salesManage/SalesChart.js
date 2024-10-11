@@ -1,69 +1,98 @@
-import React, { useState } from 'react'
-import ReactApexChart from 'react-apexcharts'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 const SalesChart = () => {
-  const [series] = useState([{
-    name: '월별 매출액',
-    data: [31, 40, 28, 51, 42, 109, 100]
-}, {
-    name: '주문량',
-    data: [11, 32, 45, 32, 34, 52, 41]
-}]);
+  const [getSales, setGetSales] = useState([]);
+  const [monthlySales, setMonthlySales] = useState(Array(12).fill(0)); // 12개월의 매출 초기화
 
-const [options] = useState({
+  useEffect(() => {
+    axios.get("/orderItem/getSales")
+      .then((res) => {
+        setGetSales(res.data);
+        console.log("API Response:", res.data);
+      })
+      .catch((error) => { console.log(error) });
+  }, []);
+
+  useEffect(() => {
+    const sales = Array(12).fill(0); // 12개월 매출 초기화
+
+    getSales.forEach(item => {
+      const orderDate = new Date(item.orderDate);
+      const month = orderDate.getMonth(); // 0~11로 반환, 1월은 0
+
+      if (month >= 0 && month < 12) {
+        sales[month] += item.totalPrice || 0; // 해당 월의 매출에 합산
+      }
+    });
+
+    setMonthlySales(sales); // 월별 매출 상태 업데이트
+  }, [getSales]);
+
+  console.log("Monthly Sales:", monthlySales); // 월별 매출 확인
+
+  const series = [{
+    name: '월별 매출액',
+    data: monthlySales // 월별 매출 데이터 사용
+  }, {
+    name: '주문량',
+    data: [11, 32, 45, 32, 34, 52, 41] // 주문량 데이터는 고정값으로 설정
+  }];
+
+  const options = {
     chart: {
-        height: 350,
-        type: 'area'
+      height: 350,
+      type: 'area'
     },
     dataLabels: {
-        enabled: false
+      enabled: false
     },
     stroke: {
-        curve: 'smooth'
+      curve: 'smooth'
     },
     xaxis: {
-        type: 'datetime',
-        categories: [
-            "2024-01",
-            "2024-02",
-            "2024-03",
-            "2024-04",
-            "2024-05",
-            "2024-06",
-            "2024-07",
-            "2024-08",
-            "2024-09",
-            "2024-10",
-            "2024-11",
-            "2024-12",
-        ]
+      type: 'datetime',
+      categories: [
+        "2024-01",
+        "2024-02",
+        "2024-03",
+        "2024-04",
+        "2024-05",
+        "2024-06",
+        "2024-07",
+        "2024-08",
+        "2024-09",
+        "2024-10",
+        "2024-11",
+        "2024-12",
+      ]
     },
     tooltip: {
-        x: {
-            format: 'dd/MM/yy HH:mm'
-        },
+      x: {
+        format: 'dd/MM/yy HH:mm'
+      },
     },
     yaxis: [
       {
-          title: {
-              text: '월별 매출액',
-          },
+        title: {
+          text: '월별 매출액',
+        },
       },
       {
-          opposite: true, // 오른쪽 y축에 표시되도록 설정
-          title: {
-              text: '주문량',
-          },
+        opposite: true,
+        title: {
+          text: '주문량',
+        },
       }
-  ],
-});
+    ],
+  };
 
   return (
     <div>
       <ReactApexChart options={options} series={series} type="area" height={350} />
-      
     </div>
-  )
+  );
 }
 
-export default SalesChart
+export default SalesChart;

@@ -11,14 +11,11 @@ import ShipManage from './pages/admin/shipManage/ShipManage';
 import ItemManage from './pages/admin/itemManage/ItemManage';
 import AddItem from './pages/admin/itemManage/AddItem';
 import SalesManage from './pages/admin/salesManage/SalesManage';
-<<<<<<< HEAD
 import ShipItemManage from './pages/admin/shipManage/ShipItemManage';
-=======
 import Login from './pages/user/Login';
 import Join from './pages/user/Join';
 import Cart from './pages/user/Cart';
 import { useEffect, useState } from 'react';
->>>>>>> 069bac9dc9e13f90ccc6fd6285a2b2022ff80de2
 
 function App() {
 
@@ -59,7 +56,7 @@ useEffect(() => {
 }
         </div>
         <div className='header-content'>
-          <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
+          <h1><i className="bi bi-capsule-pill"></i>그린카페 의약품</h1>
         </div>
       </div>
       <div className='layout-div'>
