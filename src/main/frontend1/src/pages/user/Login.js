@@ -72,7 +72,7 @@ const Login = ({setLoginInfo}) => {
     <h2 class="title1" id="signup">로그인</h2>
     <div class="form-holder">
       <input type="text" class="input" name='supmId' onChange={(e)=>{changeLoginData(e)}} placeholder="아이디" />
-      <input type="password" class="input" name='supmPw' placeholder="비밀번호" />
+      <input type="password" class="input" name='supmPw' onChange={(e)=>{changeLoginData(e)}} placeholder="비밀번호" />
     </div>
     <button class="submit-btn"  onClick={(e) => {login()}} >로그인</button>
   </div>
@@ -80,7 +80,6 @@ const Login = ({setLoginInfo}) => {
     <div class="center">
       <h2 class="form-title" id="login" onClick={(e)=>{navigaite('/join')}} ><span>or</span>회원가입</h2>
       <div class="form-holder">
-        <input type="password" class="input" onChange={(e)=>{changeLoginData(e)}} placeholder="Password" />
       </div>
       <button class="submit-btn">Log in</button>
     </div>

@@ -11,10 +11,14 @@ import ShipManage from './pages/admin/shipManage/ShipManage';
 import ItemManage from './pages/admin/itemManage/ItemManage';
 import AddItem from './pages/admin/itemManage/AddItem';
 import SalesManage from './pages/admin/salesManage/SalesManage';
+<<<<<<< HEAD
+import ShipItemManage from './pages/admin/shipManage/ShipItemManage';
+=======
 import Login from './pages/user/Login';
 import Join from './pages/user/Join';
 import Cart from './pages/user/Cart';
 import { useEffect, useState } from 'react';
+>>>>>>> 069bac9dc9e13f90ccc6fd6285a2b2022ff80de2
 
 function App() {
 
@@ -34,9 +38,25 @@ useEffect(() => {
     <div className="App">
       <div className='header'>
       <div className='auth-links'>
-          <span onClick={(e)=>{navigaite('login')}}>로그인</span>
-          <span> | </span>
-          <span onClick={(e)=>{navigaite('join')}}>회원가입</span>
+      {
+  Object.keys(loginInfo).length === 0 ? (
+    <>
+      <span onClick={() => { navigaite('login'); }}>로그인</span>
+      <span> | </span>
+      <span onClick={() => { navigaite('join'); }}>회원가입</span>
+    </>
+  ) : (
+    <>
+      <span>{loginInfo.supmName}님 반갑습니다</span>
+      <span> | </span>
+      <span onClick={() => {
+        window.sessionStorage.removeItem('loginInfo');
+        setLoginInfo({});
+        navigaite('/');
+      }}>로그아웃</span>
+    </>
+  )
+}
         </div>
         <div className='header-content'>
           <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
@@ -59,6 +79,7 @@ useEffect(() => {
             <Route path='orderManage' element={<OrderManage />} />
             <Route path='cusList' element={<CusList />} />
             <Route path='shipManage' element={<ShipManage />} />
+            <Route path='shipItemManage' element={<ShipItemManage />} />
             <Route path='itemManage' element={<ItemManage />} />
             <Route path='addItem' element={<AddItem />} />
             <Route path='salesManage' element={<SalesManage />} />

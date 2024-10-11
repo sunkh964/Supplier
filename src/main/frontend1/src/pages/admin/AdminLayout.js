@@ -20,7 +20,8 @@ const AdminLayout = () => {
       title: '출하 관리',
       path: '/admin/shipManage',
       subMenu: [
-        { title: '출하 내역', path: '/admin/shipManage' },
+        { title: '주문서 관리', path: '/admin/shipManage' },
+        { title: '개별 주문 관리', path: '/admin/shipItemManage' },
       ]
     },
     {

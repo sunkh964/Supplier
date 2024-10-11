@@ -7,16 +7,15 @@
         <id column="ORDER_NUM" property="orderNum"/>
         <result column="TOTAL_PRICE" property="totalPrice" />
         <result column="ORDER_DATE" property="orderDate"/>
-        <association property="supVO" resultMap="supMapper.sup"/>
-        <association property="typeVO" resultMap="itemMapper.type"/>
+        <association property="cusVO" resultMap="cusMapper.cus" />
         <association property="deliverVO" resultMap="deliver"/>
+        <association property="orderDetailVO" resultMap="orderDetail"/>
     </resultMap>
 
     <resultMap id="orderAmount" type="com.green.Supplier.orderItem.vo.OrderAmountVO">
         <result column="TYPE_NAME" property="typeName"/>
         <result column="TOTAL_AMOUNT" property="totalAmount"/>
     </resultMap>
-
 
     <resultMap id="deliver" type="com.green.Supplier.orderItem.vo.DeliverVO">
         <result column="DELI_NUM" property="deliNum"/>
@@ -33,44 +32,17 @@
         <result column="ARRIVE_TIME" property="arriveTime"/>
         <association property="deliverVO" resultMap="deliver"/>
         <association property="itemVO" resultMap="itemMapper.item" />
-        <association property="orderItemVO" resultMap="orderItem" />
     </resultMap>
 
-    <!-- 구입항목 가져오기 -->
-    <select id="selectOrderItem" resultMap="orderItem">
-        SELECT * FROM ORDER_ITEM O, SUP S, ITEM_TYPE T, ITEM SP, DELIVER D
-        WHERE O.ITEM_NUM = SP.ITEM_NUM
-        AND SP.SUP_NUM= S.SUP_NUM
-        AND SP.TYPE_NUM = T.TYPE_NUM
-<!--        AND MONTH(I.ORDER_DATE) = MONTH(CURRENT_DATE())-->
-<!--        AND YEAR(I.ORDER_DATE) = YEAR(CURRENT_DATE())-->
-        <if test='searchValue != null and !searchValue.equals("")'>
-            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
-        </if>
-        ORDER BY O.ORDER_DATE DESC;
-    </select>
-
-    <!-- 상품 타입별 총 금액 -->
-    <select id="totalOrderAmount" resultMap="orderAmount">
-        SELECT T.TYPE_NAME, SUM(I.ORDER_CNT * P.PRICE) AS TOTAL_AMOUNT
-        FROM ORDER_ITEM I, ITEM_TYPE T, ITEM P
-        WHERE I.ITEM_NUM = P.ITEM_NUM
-        AND T.TYPE_NUM = P.TYPE_NUM
-<!--        AND MONTH(I.ORDER_DATE) = MONTH(CURRENT_DATE())-->
-<!--        AND YEAR(I.ORDER_DATE) = YEAR(CURRENT_DATE())-->
-        GROUP BY T.TYPE_NAME
-        ORDER BY T.TYPE_NAME;
-    </select>
-
-    <!-- 월별 매출량 계산 -->
-    <select id="getMonthSales">
-        SELECT
-            DATE_FORMAT(O.ORDER_DATE, '%Y-%m') AS month,
-            SUM(O.ORDER_CNT * I.PRICE) AS total_sales
-        FROM ORDER_ITEM O
-        JOIN ITEM I ON O.ITEM_NUM = I.ITEM_NUM
-        GROUP BY month
-        ORDER BY month;
+    <!-- 공급사 주문서 목록 -->
+    <select id="getOrderList" resultMap="orderItem">
+        SELECT O.ORDER_NUM, C.CUS_NUM, C.CUS_NAME, O.ORDER_DATE, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, O.DELI_NUM, D.DELI_STATUS
+        FROM cus C, item I, deliver D, order_item O, ORDER_DETAIL OD
+        WHERE OD.ORDER_NUM = O.ORDER_NUM
+            AND O.CUS_NUM = C.CUS_NUM
+            AND I.ITEM_NUM = OD.ITEM_NUM
+            AND O.DELI_NUM = D.DELI_NUM
+        ORDER BY O.ORDER_NUM DESC;
     </select>
 
 
