@@ -5,6 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 const SalesChart = () => {
   const [getSales, setGetSales] = useState([]);
   const [monthlySales, setMonthlySales] = useState(Array(12).fill(0)); // 12개월의 매출 초기화
+  const [monthlyOrders, setMonthlyOrders] = useState(Array(12).fill(0)); // 12개월의 주문량 초기화
 
   useEffect(() => {
     axios.get("/orderItem/getSales")
@@ -17,6 +18,7 @@ const SalesChart = () => {
 
   useEffect(() => {
     const sales = Array(12).fill(0); // 12개월 매출 초기화
+    const orders = Array(12).fill(0); // 12개월 매출 초기화
 
     getSales.forEach(item => {
       const orderDate = new Date(item.orderDate);
@@ -24,53 +26,51 @@ const SalesChart = () => {
 
       if (month >= 0 && month < 12) {
         sales[month] += item.totalPrice || 0; // 해당 월의 매출에 합산
+        orders[month] += 1; // 해당 월의 주문량에 1 추가
       }
     });
 
     setMonthlySales(sales); // 월별 매출 상태 업데이트
+    setMonthlyOrders(orders); // 월별 주문량 상태 업데이트
   }, [getSales]);
 
-  console.log("Monthly Sales:", monthlySales); // 월별 매출 확인
 
   const series = [{
     name: '월별 매출액',
-    data: monthlySales // 월별 매출 데이터 사용
+    data: monthlySales.map((sale,i) => sale/10000) // 월별 매출 데이터 사용
   }, {
     name: '주문량',
-    data: [11, 32, 45, 32, 34, 52, 41] // 주문량 데이터는 고정값으로 설정
+    data: monthlyOrders // 주문량 데이터는 고정값으로 설정
   }];
+
+  // 최고점과 최저점 계산
+  const maxSales = Math.max(...monthlySales) / 10000;
+  const minSales = Math.min(...monthlySales) / 10000;
+  const maxOrders = Math.max(...monthlyOrders);
+  const minOrders = Math.min(...monthlyOrders);
 
   const options = {
     chart: {
       height: 350,
-      type: 'area'
+      type: 'area',
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     stroke: {
-      curve: 'smooth'
+      curve: 'smooth',
     },
     xaxis: {
       type: 'datetime',
       categories: [
-        "2024-01",
-        "2024-02",
-        "2024-03",
-        "2024-04",
-        "2024-05",
-        "2024-06",
-        "2024-07",
-        "2024-08",
-        "2024-09",
-        "2024-10",
-        "2024-11",
-        "2024-12",
-      ]
+        "2024-01", "2024-02", "2024-03", "2024-04",
+        "2024-05", "2024-06", "2024-07", "2024-08",
+        "2024-09", "2024-10", "2024-11", "2024-12",
+      ],
     },
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm'
+        format: 'dd/MM/yy HH:mm',
       },
     },
     yaxis: [
@@ -78,14 +78,70 @@ const SalesChart = () => {
         title: {
           text: '월별 매출액',
         },
+        max: 1000,
       },
       {
         opposite: true,
         title: {
           text: '주문량',
         },
-      }
+        max: 25,
+      },
     ],
+    annotations: {
+      yaxis: [
+        {
+          y: maxSales,
+          borderColor: '#FF4560',
+          label: {
+            borderColor: '#FF4560',
+            style: {
+              color: '#fff',
+              background: '#FF4560',
+            },
+            text: `최대 매출: ${maxSales.toFixed()} 만원`,
+            offsetX: -720, // 왼쪽으로 이동
+          },
+        },
+        {
+          y: minSales,
+          borderColor: '#00E396',
+          label: {
+            borderColor: '#00E396',
+            style: {
+              color: '#fff',
+              background: '#00E396',
+            },
+            text: `최저 매출: ${minSales.toFixed()} 만원`,
+            offsetX: -720, // 왼쪽으로 이동,
+          },
+        },
+        {
+          y: maxOrders,
+          borderColor: '#775DD0',
+          label: {
+            borderColor: '#775DD0',
+            style: {
+              color: '#fff',
+              background: '#775DD0',
+            },
+            text: `최고 주문량: ${maxOrders}`,
+          },
+        },
+        {
+          y: minOrders,
+          borderColor: '#FEB019',
+          label: {
+            borderColor: '#FEB019',
+            style: {
+              color: '#fff',
+              background: '#FEB019',
+            },
+            text: `최저 주문량: ${minOrders}`,
+          },
+        },
+      ],
+    },
   };
 
   return (

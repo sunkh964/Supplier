@@ -52,7 +52,7 @@ const SalesManage = () => {
           <div>매출액<span className='s2-title'>{CurrentMName()}</span></div>
           <div>
             <div className='s2-icon'><i className="bi bi-cash-coin"></i></div>
-            <div>{(totalSales / 1000).toLocaleString()}만원</div>
+            <div>{(totalSales / 10000).toLocaleString()}만원</div>
           </div>
         </div>
         <div className='s2'>
