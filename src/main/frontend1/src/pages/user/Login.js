@@ -67,21 +67,21 @@ const Login = ({setLoginInfo}) => {
 
   return (
     <div className='body-lo'>
-<div class="form-structor">
-  <div class="signup">
-    <h2 class="title1" id="signup">로그인</h2>
-    <div class="form-holder">
-      <input type="text" class="input" name='supmId' onChange={(e)=>{changeLoginData(e)}} placeholder="아이디" />
-      <input type="password" class="input" name='supmPw' onChange={(e)=>{changeLoginData(e)}} placeholder="비밀번호" />
+<div className="form-structor">
+  <div className="signup">
+    <h2 className="title1" id="signup">로그인</h2>
+    <div className="form-holder">
+      <input type="text" className="input" name='supmId' onChange={(e)=>{changeLoginData(e)}} placeholder="아이디" />
+      <input type="password" className="input" name='supmPw' onChange={(e)=>{changeLoginData(e)}} placeholder="비밀번호" />
     </div>
-    <button class="submit-btn"  onClick={(e) => {login()}} >로그인</button>
+    <button className="submit-btn"  onClick={(e) => {login()}} >로그인</button>
   </div>
-  <div class="login slide-up">
-    <div class="center">
-      <h2 class="form-title" id="login" onClick={(e)=>{navigaite('/join')}} ><span>or</span>회원가입</h2>
-      <div class="form-holder">
+  <div className="login slide-up">
+    <div className="center">
+      <h2 className="form-title" id="login" onClick={(e)=>{navigaite('/join')}} ><span>or</span>회원가입</h2>
+      <div className="form-holder">
       </div>
-      <button class="submit-btn">Log in</button>
+      <button className="submit-btn">Log in</button>
     </div>
   </div>
 </div>

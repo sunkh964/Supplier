@@ -34,6 +34,12 @@
         <association property="itemVO" resultMap="itemMapper.item" />
     </resultMap>
 
+    <resultMap id="salesData" type="com.green.Supplier.orderItem.vo.SalesDataVO">
+        <result column="orderMonth" property="orderMonth"/>
+        <result column="totalPrice" property="totalPrice"/>
+        <result column="orderCount" property="orderCount"/>
+    </resultMap>
+
     <!-- 공급사 주문서 목록 -->
     <select id="getOrderList" resultMap="orderItem">
         SELECT O.ORDER_NUM, C.CUS_NUM, C.CUS_NAME, O.ORDER_DATE, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, O.DELI_NUM, D.DELI_STATUS
@@ -44,4 +50,11 @@
             AND O.DELI_NUM = D.DELI_NUM
         ORDER BY O.ORDER_NUM DESC;
     </select>
+
+    <!-- 매출 조회 -->
+    <select id="getSales" resultMap="orderItem">
+        SELECT ORDER_DATE, TOTAL_PRICE
+        FROM order_item
+    </select>
+
 </mapper>
