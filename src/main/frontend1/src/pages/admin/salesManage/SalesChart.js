@@ -43,11 +43,9 @@ const SalesChart = () => {
     data: monthlyOrders // 주문량 데이터는 고정값으로 설정
   }];
 
-  // 최고점과 최저점 계산
+  // 최고점 최저점
   const maxSales = Math.max(...monthlySales) / 10000;
   const minSales = Math.min(...monthlySales) / 10000;
-  const maxOrders = Math.max(...monthlyOrders);
-  const minOrders = Math.min(...monthlyOrders);
 
   const options = {
     chart: {
@@ -68,9 +66,14 @@ const SalesChart = () => {
         "2024-09", "2024-10", "2024-11", "2024-12",
       ],
     },
+    legend:{
+      markers :{ 
+        shape : 'square'
+      },
+    },
     tooltip: {
       x: {
-        format: 'dd/MM/yy HH:mm',
+        format: 'yyyy / MM',
       },
     },
     yaxis: [
@@ -100,44 +103,18 @@ const SalesChart = () => {
               background: '#FF4560',
             },
             text: `최대 매출: ${maxSales.toFixed()} 만원`,
-            offsetX: -720, // 왼쪽으로 이동
           },
         },
         {
           y: minSales,
-          borderColor: '#00E396',
+          borderColor: '#5f5e5e',
           label: {
-            borderColor: '#00E396',
+            borderColor: '#5f5e5e',
             style: {
               color: '#fff',
-              background: '#00E396',
+              background: '#5f5e5e',
             },
             text: `최저 매출: ${minSales.toFixed()} 만원`,
-            offsetX: -720, // 왼쪽으로 이동,
-          },
-        },
-        {
-          y: maxOrders,
-          borderColor: '#775DD0',
-          label: {
-            borderColor: '#775DD0',
-            style: {
-              color: '#fff',
-              background: '#775DD0',
-            },
-            text: `최고 주문량: ${maxOrders}`,
-          },
-        },
-        {
-          y: minOrders,
-          borderColor: '#FEB019',
-          label: {
-            borderColor: '#FEB019',
-            style: {
-              color: '#fff',
-              background: '#FEB019',
-            },
-            text: `최저 주문량: ${minOrders}`,
           },
         },
       ],
