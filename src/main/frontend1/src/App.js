@@ -55,8 +55,13 @@ useEffect(() => {
   )
 }
         </div>
+<<<<<<< HEAD
         <div className='header-content'>
           <h1><i className="bi bi-capsule-pill"></i>그린카페 의약품</h1>
+=======
+        <div className='header-content' onClick={(e)=>{navigaite('/')}}>
+          <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
+>>>>>>> nohk
         </div>
       </div>
       <div className='layout-div'>

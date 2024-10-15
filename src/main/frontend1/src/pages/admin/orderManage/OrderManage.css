@@ -1,0 +1,55 @@
+
+.main-div{
+  font-size: 1.7rem;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+/* --------------------------------------------테이블 */
+.table-div table { width: 100%; }
+
+.table-div td {
+  text-align: center;
+  padding: 5px 15px;
+}
+
+.table-div tbody tr:hover {
+  background-color: #f3f3f3;
+}
+
+.table-div thead td {
+  border-top: 2px solid #E1E7FF;
+  border-bottom: 2px solid #E1E7FF;
+  background-color: #F2F4FF;
+  height: 40px;
+  vertical-align: middle;
+}
+
+.table-div tbody tr {
+  border-bottom: 2px solid #E8E9EE;
+}
+/* --------------------------------------테이블 */
+
+/* 버튼 */
+.btn-3d {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  padding: 10px 40px;
+  color: white;
+  margin: 20px 10px 10px;
+  border-radius: 6px;
+  text-align: center;
+  transition: top .01s linear;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+}
+.btn-3d.blue:hover   {background-color: #699DD1;}
+
+.btn-3d.blue {
+  background-color: #6DA2D9;
+  box-shadow: 0 0 0 1px #6698cb inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 8px 0 0 rgba(110, 164, 219, .7),
+        0 8px 0 1px rgba(0,0,0,.4),
+        0 8px 8px 1px rgba(0,0,0,0.5);
+}
