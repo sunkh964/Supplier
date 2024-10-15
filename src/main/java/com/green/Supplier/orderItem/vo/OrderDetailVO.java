@@ -15,7 +15,6 @@ public class OrderDetailVO {
     private ItemVO itemVO;
     private String departTime;
     private String arriveTime;
-    private OrderItemVO orderItemVO;
     private DeliverVO deliverVO;
     private CusVO cusVO;
     private TypeVO typeVO;
