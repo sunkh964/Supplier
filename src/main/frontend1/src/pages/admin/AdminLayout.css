@@ -1,5 +1,6 @@
 .adminLayout{
-   margin: 70px 50px;
+   width: 70%;
+   margin: 70px auto;
    height: 90vh;
    border: 1px solid #A1BDED;
    border-radius: 10px;
