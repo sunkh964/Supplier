@@ -52,7 +52,6 @@ public class OrderItemServiceImpl implements OrderItemService{
         sqlSession.update("orderItemMapper.setDelisStart", orderNum);
     }
 
-
     // <!-- 매출 조회 -->
     @Override
     public List<OrderItemVO> getSales() {
