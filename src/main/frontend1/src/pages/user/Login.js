@@ -13,6 +13,7 @@ const Login = ({setLoginInfo}) => {
     const [loginData, setLoginData]=useState({
       supmId: '',
       supmPw:'',
+      supmRole:''
     });
   
     // 입력한 id, pw를 loginData에 저장하는 함수
@@ -43,7 +44,8 @@ const Login = ({setLoginInfo}) => {
             supmId:res.data.supmId,
             supmPw:res.data.supmPw,
             supmNum:res.data.supmNum,
-            supmName:res.data.supmName
+            supmName:res.data.supmName,
+            supmRole:res.data.supmRole
           };
           alert('로그인 성공')
   
@@ -55,7 +57,12 @@ const Login = ({setLoginInfo}) => {
           //로그인 정보를 저장
           setLoginInfo(loginInfo);
   
-          navigaite('/');
+        // admin으로 로그인한 경우 admin 페이지로 이동
+        if (loginData.supmRole === 'admin') {
+          navigaite('/admin'); // admin 전용 페이지로 이동
+        } else {
+          navigaite('/'); // 일반 사용자 페이지로 이동
+        }
         }
       })
       .catch((error)=>{

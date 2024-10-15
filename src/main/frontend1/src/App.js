@@ -54,7 +54,7 @@ useEffect(() => {
   )
 }
         </div>
-        <div className='header-content'>
+        <div className='header-content' onClick={(e)=>{navigaite('/')}}>
           <h1><i class="bi bi-capsule-pill"></i>그린카페 의약품</h1>
         </div>
       </div>
