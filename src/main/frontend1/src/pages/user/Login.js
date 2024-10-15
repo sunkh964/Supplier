@@ -58,7 +58,7 @@ const Login = ({setLoginInfo}) => {
           setLoginInfo(loginInfo);
   
         // admin으로 로그인한 경우 admin 페이지로 이동
-        if (loginData.supmRole === 'admin') {
+        if (loginInfo.supmRole === 'admin') {
           navigaite('/admin'); // admin 전용 페이지로 이동
         } else {
           navigaite('/'); // 일반 사용자 페이지로 이동

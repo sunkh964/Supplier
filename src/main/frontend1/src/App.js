@@ -16,6 +16,7 @@ import Login from './pages/user/Login';
 import Join from './pages/user/Join';
 import Cart from './pages/user/Cart';
 import { useEffect, useState } from 'react';
+import OrderDtail from './pages/admin/orderManage/OrderDtail';
 
 function App() {
 
@@ -82,6 +83,7 @@ useEffect(() => {
             <Route path='itemManage' element={<ItemManage />} />
             <Route path='addItem' element={<AddItem />} />
             <Route path='salesManage' element={<SalesManage />} />
+            <Route path='orderDetail' element={<OrderDtail/>}/>
           </Route>
         </Routes>
       </div>
