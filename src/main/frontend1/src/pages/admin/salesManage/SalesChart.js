@@ -49,7 +49,6 @@ const SalesChart = () => {
 
   const options = {
     chart: {
-      height: 350,
       type: 'area',
     },
     dataLabels: {
@@ -123,7 +122,7 @@ const SalesChart = () => {
 
   return (
     <div>
-      <ReactApexChart options={options} series={series} type="area" height={350} />
+      <ReactApexChart options={options} series={series} type="area" height={320} />
     </div>
   );
 }
