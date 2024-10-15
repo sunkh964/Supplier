@@ -72,6 +72,7 @@ const SalesManage = () => {
       </div>
 
       <div className='sales-3'>
+        <div></div>
         <div className='s3-chart'>
           <SalesChart />
         </div>
