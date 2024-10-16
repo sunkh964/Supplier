@@ -9,9 +9,11 @@ const OrderManage = () => {
   // 조회한 내역 목록 데이터 저장
   const [orderList, setOrderList]=useState([]);
 
+  const [searchInfo, setSearchInfo] = useState({});
+
     //내역 목록 조회
     useEffect(() => {
-      axios.get('/orderItem/getOrderList')
+      axios.post('/orderItem/getOrderList', searchInfo)
       .then((res) => {
         setOrderList(res.data);
       })
@@ -28,48 +30,32 @@ const OrderManage = () => {
           <thead>
             <tr>
               <td>주문번호</td>
-              <td>고객명</td>
+              <td>주문 업체</td>
               <td>주문날짜</td>
               <td>총 가격</td>
-              <td>총 수량</td>
               <td>연락처</td>
               <td>배송 완료 여부</td>
               <td>주문서 확인</td>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>{orderList.orderNum}</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td>123</td>
-              <td><div class="btn-container" onClick={()=>{navigaite('/admin/orderDetail')}}>
-                <a href="#" class="btn-3d blue">Button</a>
-              </div></td>
-            </tr>
-            <tr>
               {
-                orderList.map((order, i)=>{
+                orderList.reverse().map((order, i)=>{
                   return(
-                    <div className='table-div' key={i}>
+                    <tr className='table-div' key={i}>
                       <td>{order.orderNum}</td>
-                      <td>123</td>
+                      <td>{order.cusVO.cusName}</td>
                       <td>{order.orderDate}</td>
                       <td>{order.totalPrice}</td>
-                      <td>{order.orderCount}</td>
-                      <td>123</td>
-                      <td>123</td>
-                      <td><div class="btn-container" onClick={()=>{navigaite('/admin/orderDetail')}}>
-                      <a href="#" class="btn-3d blue">Button</a>
+                      <td>{order.cusVO.cusTel}</td>
+                      <td>{order.deliverVO.deliStatus}</td>
+                      <td><div class="btn-container" onClick={()=>{navigaite(`/admin/orderDetail/${order.orderNum}`)}}>
+                      <a href="" class="btn-3d blue">Button</a>
                       </div></td>
-                    </div>
+                    </tr>
                   );
                 })
               }
-            </tr>
           </tbody>
         </table>
       </div>

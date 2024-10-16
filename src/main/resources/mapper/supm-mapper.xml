@@ -42,7 +42,7 @@
     </select>
 
     <select id="login" resultMap="supm">
-        SELECT SUPM_ID, SUPM_NAME, SUPM_NUM
+        SELECT SUPM_ID, SUPM_NAME, SUPM_NUM, SUPM_ROLE
         FROM SUP_MEMBER
         WHERE SUPM_ID = #{supmId}
         AND SUPM_PW = #{supmPw}

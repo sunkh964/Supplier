@@ -1,0 +1,42 @@
+.table-div1 {
+  width: 100%;
+  border-top: px solid #E1E7FF;
+}
+
+.table-div1 table { 
+  width: 100%;
+}
+
+.tabled td {
+  text-align: center;
+  padding: 5px 15px;
+}
+
+.tabled > tbody> tr > td:nth-child(1) {
+  /* width: 40%; */
+  border-top: 2px solid #E1E7FF;
+  border-bottom: 2px solid #E1E7FF;
+  background-color: #F2F4FF;
+  height: 50px;
+  vertical-align: middle;
+}
+
+.tabled > tbody> tr > td:last-child {
+  border-top: 2px solid #f4f6ff;
+}
+
+.table-div1{
+  width: 100%;
+  height: 100%;
+}
+
+
+.n >tr, .n td{
+  background-color: white;
+  border-top: none;
+  border-bottom: none ;
+}
+
+.n thead {
+  background-color: red !important;
+}

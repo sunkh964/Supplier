@@ -83,7 +83,7 @@ useEffect(() => {
             <Route path='itemManage' element={<ItemManage />} />
             <Route path='addItem' element={<AddItem />} />
             <Route path='salesManage' element={<SalesManage />} />
-            <Route path='orderDetail' element={<OrderDtail/>}/>
+            <Route path='orderDetail/:orderNum' element={<OrderDtail/>}/>
           </Route>
         </Routes>
       </div>

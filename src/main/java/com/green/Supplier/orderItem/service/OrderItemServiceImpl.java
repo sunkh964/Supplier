@@ -1,9 +1,7 @@
 package com.green.Supplier.orderItem.service;
 
-import com.green.Supplier.orderItem.vo.OrderAmountVO;
 import com.green.Supplier.orderItem.vo.OrderDetailVO;
 import com.green.Supplier.orderItem.vo.OrderItemVO;
-import com.green.Supplier.orderItem.vo.SalesDataVO;
 import com.green.Supplier.orderItem.vo.SearchVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,20 @@ public class OrderItemServiceImpl implements OrderItemService{
     public List<OrderItemVO> getOrderList(SearchVO searchVO) {
         return sqlSession.selectList("orderItemMapper.getOrderList", searchVO);
     }
+
+    //주문 상세내역
+    @Override
+    public List<OrderItemVO> getOrderDetail(int orderNum) {
+        return sqlSession.selectList("orderItemMapper.getOrderDetail", orderNum);
+    }
+
+    //주문 상세내역
+    @Override
+    public List<OrderItemVO> getDetail(int orderNum) {
+        return sqlSession.selectList("orderItemMapper.getDetail", orderNum);
+    }
+
+
 
     @Override
     public List<OrderDetailVO> getOrderDetailList(SearchVO searchVO) {
