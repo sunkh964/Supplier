@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/orderDetail")
 public class OrderDetailController {
-    @Resource(name="orderDetailService")
-    private OrderDetailService orderDetailService;
+//    @Resource(name="orderDetailService")
+//    private OrderDetailService orderDetailService;
 
 
 }

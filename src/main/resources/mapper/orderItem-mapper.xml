@@ -56,14 +56,12 @@
         ORDER BY O.ORDER_NUM DESC;
     </select>
 
-<<<<<<< HEAD
     <!-- 매출 조회 -->
     <select id="getSales" resultMap="orderItem">
         SELECT *
         FROM order_item
     </select>
 
-=======
     <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderDetailList" resultMap="orderDetail">
         SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, I.ITEM_NAME, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.PRICE, I.STOCK, OD.ORDER_CNT
@@ -113,5 +111,5 @@
         SET O.DELI_NUM = 3, OD.DELI_NUM = 4, OD.DEPART_TIME = CURRENT_TIMESTAMP
         WHERE O.ORDER_NUM = #{orderNum} AND O.ORDER_NUM = OD.ORDER_NUM;
     </update>
->>>>>>> idw
+
 </mapper>
