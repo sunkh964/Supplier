@@ -60,6 +60,98 @@
         </choose>
     </select>
 
+
+
+    <!-- 주문 상세 내역서 조회 -->
+    <select id="getOrderDetail" resultMap="orderItem">
+        SELECT
+        O.ORDER_NUM,
+        C.CUS_NUM,
+        C.CUS_NAME,
+        C.CUS_ADDR,
+        C.CUS_TEL,
+        O.ORDER_DATE,
+        O.TOTAL_PRICE,
+        D.DELI_NUM,
+        D.DELI_STATUS,
+        OD.DETAIL_NUM,
+        T.TYPE_NUM,
+        T.TYPE_NAME,
+        I.ITEM_NUM,
+        I.ITEM_NAME,
+        I.ITEM_IMG,
+        I.PRICE,
+        OD.ORDER_CNT,
+        OD.DETAIL_PRICE,
+        OD.DEPART_TIME,
+        OD.ARRIVE_TIME
+        FROM
+        order_item O
+        JOIN
+        cus C ON O.CUS_NUM = C.CUS_NUM
+        JOIN
+        deliver D ON O.DELI_NUM = D.DELI_NUM
+        JOIN
+        ORDER_DETAIL OD ON O.ORDER_NUM = OD.ORDER_NUM
+        JOIN
+        item I ON OD.ITEM_NUM = I.ITEM_NUM
+        JOIN
+        item_type T ON I.TYPE_NUM = T.TYPE_NUM
+        WHERE
+        O.ORDER_NUM = #{orderNum}
+        <if test='searchValue != null and !searchValue.equals("")'>
+            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
+        ORDER BY
+        O.ORDER_NUM;
+    </select>
+
+    <!-- 주문 상세 내역서 조회 -->
+    <select id="getDetail" resultMap="orderDetail">
+        SELECT
+        O.ORDER_NUM,
+        C.CUS_NUM,
+        C.CUS_NAME,
+        C.CUS_ADDR,
+        C.CUS_TEL,
+        O.ORDER_DATE,
+        O.TOTAL_PRICE,
+        D.DELI_NUM,
+        D.DELI_STATUS,
+        OD.DETAIL_NUM,
+        T.TYPE_NUM,
+        T.TYPE_NAME,
+        I.ITEM_NUM,
+        I.ITEM_NAME,
+        I.ITEM_IMG,
+        I.PRICE,
+        OD.ORDER_CNT,
+        OD.DETAIL_PRICE,
+        OD.DEPART_TIME,
+        OD.ARRIVE_TIME
+        FROM
+        order_item O
+        JOIN
+        cus C ON O.CUS_NUM = C.CUS_NUM
+        JOIN
+        deliver D ON O.DELI_NUM = D.DELI_NUM
+        JOIN
+        ORDER_DETAIL OD ON O.ORDER_NUM = OD.ORDER_NUM
+        JOIN
+        item I ON OD.ITEM_NUM = I.ITEM_NUM
+        JOIN
+        item_type T ON I.TYPE_NUM = T.TYPE_NUM
+        WHERE
+        O.ORDER_NUM = #{orderNum}
+        <if test='searchValue != null and !searchValue.equals("")'>
+            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
+        ORDER BY
+        O.ORDER_NUM;
+    </select>
+
+
+
     <!-- 매출 조회 -->
 <!--    <select id="getSales" resultMap="orderItem">-->
 <!--        SELECT *-->
@@ -125,4 +217,6 @@
         SET O.DELI_NUM = 3, OD.DELI_NUM = 4, OD.DEPART_TIME = CURRENT_TIMESTAMP
         WHERE O.ORDER_NUM = #{orderNum} AND O.ORDER_NUM = OD.ORDER_NUM;
     </update>
+
+
 </mapper>

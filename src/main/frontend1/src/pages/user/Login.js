@@ -56,9 +56,9 @@ const Login = ({setLoginInfo}) => {
           window.sessionStorage.setItem('loginInfo', json_loginInfo);
           //로그인 정보를 저장
           setLoginInfo(loginInfo);
-  
+          console.log(loginInfo.supmRole);
         // admin으로 로그인한 경우 admin 페이지로 이동
-        if (loginInfo.supmRole === 'admin') {
+        if (loginInfo.supmRole === 'ADMIN') {
           navigaite('/admin'); // admin 전용 페이지로 이동
         } else {
           navigaite('/'); // 일반 사용자 페이지로 이동

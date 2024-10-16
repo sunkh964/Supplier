@@ -11,7 +11,13 @@ public interface OrderItemService {
 
     List<OrderItemVO> getOrderList(SearchVO searchVO);
 
-//    공급사 개별상품주문 목록
+//    주문 상세내역 조회
+    List<OrderItemVO> getOrderDetail(int orderNum);
+
+    //    주문 상세내역 조회
+    List<OrderItemVO> getDetail(int orderNum);
+
+    //    공급사 개별상품주문 목록
     List<OrderDetailVO> getOrderDetailList(SearchVO searchVO);
 
 //    주문번호 목록 조회

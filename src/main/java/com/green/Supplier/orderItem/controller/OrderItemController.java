@@ -8,9 +8,7 @@ import com.green.Supplier.orderItem.vo.SearchVO;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/orderItem")
@@ -24,6 +22,30 @@ public class OrderItemController {
         List<OrderItemVO> result = orderItemService.getOrderList(searchVO);
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ result);
         return result;
+    }
+
+//주문 상세 내역 확인
+    @GetMapping("/orderDetail/{orderNum}")
+    public List<OrderItemVO> getOrderDetail(@PathVariable("orderNum") int orderNum) {
+        System.out.println("Requested Order Number: " + orderNum);
+        return orderItemService.getOrderDetail(orderNum);
+        //        try {
+//            List<OrderItemVO> orderDetails = orderItemService.getOrderDetail(orderNum);
+//            if (orderDetails.isEmpty()) {
+//                System.out.println("No details found for order number: " + orderNum);
+//            }
+//            return orderDetails;
+//        } catch (Exception e) {
+//            e.printStackTrace(); // 예외 로그 출력
+//            return Collections.emptyList(); // 빈 리스트 반환
+//        }
+    }
+
+    //주문 상세 내역 확인
+    @GetMapping("/detail/{orderNum}")
+    public List<OrderItemVO> getDetail(@PathVariable("orderNum") int orderNum) {
+        System.out.println("Requested Order Number: " + orderNum);
+        return orderItemService.getDetail(orderNum);
     }
 
     //<!-- 매출 조회 -->
