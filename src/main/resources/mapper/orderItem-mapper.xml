@@ -59,7 +59,7 @@
 <<<<<<< HEAD
     <!-- 매출 조회 -->
     <select id="getSales" resultMap="orderItem">
-        SELECT ORDER_DATE, TOTAL_PRICE
+        SELECT *
         FROM order_item
     </select>
 

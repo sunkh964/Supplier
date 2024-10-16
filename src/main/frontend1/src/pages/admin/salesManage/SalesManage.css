@@ -1,10 +1,12 @@
-.sales-1{
-  
+.sales{
+  padding: 10px 30px 10px 15px;
+  height: 100%;
+  overflow-y: scroll;
 }
 .sales-2{
   display: grid;
   grid-template-columns: repeat(3,1fr);
-  gap: 20px;
+  gap: 30px;
   margin-bottom: 30px;
 }
 
@@ -46,10 +48,106 @@
   line-height: 50px;
 }
 
+.s2 .s2-num{
+  margin-left: 10px;
+}
+
+/* ====================sales-3 ===================== */
 .sales-3{
-  box-shadow: 1px 1px 3px 1px  #dddddd;
   margin-bottom: 30px;
 }
+.sales-3 > div:first-child{
+  color:rgb(41, 98, 148);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+.sales-3 > div:first-child > span{
+  color: rgb(216, 3, 3);
+  font-size: 0.85rem;
+}
+
 .s3-chart{
-  
+  box-shadow: 1px 1px 3px 1px  #dddddd;
+  padding: 10px 5px;
+}
+
+/* ==================== sales-1 ===================== */
+
+.sales-1{
+  padding: 10px;
+  margin-bottom: 30px;
+  width: 95%;
+  margin: auto;
+}
+
+.sales-1 > div:first-child{
+  color:rgb(86, 89, 92);
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  margin-left: 5px;
+}
+
+.sales-1 > .unit{
+  display: flex;
+  justify-content: end;
+  font-size: 0.7rem;
+  color: gray;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+
+.sales-1 .s1-table{
+  margin-left: 5px;
+  width: 98%;
+  margin: auto;
+}
+
+.sales-1 .s1-table td{
+  width: 50px;
+  font-size: 0.85rem;
+  border: 1px solid #dddddd;
+  background-color: #fffdfd;
+  padding: 12px 0;
+}
+.sales-1 .s1-table tr:first-child td{
+  padding: 9px 0;
+}
+
+.sales-1 .s1-table td:first-child{
+  background-color: #eeeeee;
+  color: rgb(87, 85, 85);
+  font-weight: 600;
+  border-left: none;
+  padding: 5px;
+  letter-spacing: 3px;
+}
+.sales-1 .s1-table td:last-child{
+  border-right: none;
+}
+
+.sales-1 td.curMonth {
+  background-color: #f1f6f8;
+  color: #46578f;
+  font-weight: 600;
+}
+
+/* ==================== sales-4 ===================== */
+.sales-4{
+  margin-bottom: 5px;
+}
+.sales-4 > div:first-child{
+  color:rgb(41, 98, 148);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+.s4-chart{
+  box-shadow: 1px 1px 3px 1px  #dddddd;
+  padding: 10px 5px;
 }
