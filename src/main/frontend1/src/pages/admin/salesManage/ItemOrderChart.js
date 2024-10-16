@@ -1,40 +1,58 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
 const ItemOrderChart = () => {
-  const [series] = useState([{
-    name: 'Marine Sprite',
-    data: [44, 55, 41, 37, 22, 43, 21]
-  }, {
-    name: 'Striking Calf',
-    data: [53, 32, 33, 52, 13, 43, 32]
-  }, {
-    name: 'Tank Picture',
-    data: [12, 17, 11, 9, 15, 11, 20]
-  }, {
-    name: 'Bucket Slope',
-    data: [9, 7, 5, 8, 6, 9, 4]
-  }, {
-    name: 'Reborn Kid',
-    data: [25, 12, 19, 32, 25, 24, 10]
-  }]);
+  const [getItem, setGetItem] = useState([]);
+  const [getCus, setGetCus] = useState([]);
+  const [series, setSeries] = useState([]);
 
-  const [options] = useState({
+  useEffect(() => {
+    axios.get("/item/get")
+      .then((res) => {
+        setGetItem(res.data);
+        console.log("아이템 데이터:", res.data);
+      })
+      .catch((error) => { console.log(error) });
+  }, []);
+
+  useEffect(() => {
+    axios.get("/cus/get")
+      .then((res) => {
+        setGetCus(res.data);
+        console.log("고객 데이터:", res.data);
+      })
+      .catch((error) => { console.log(error) });
+  }, []);
+
+  useEffect(() => {
+    // 시리즈 배열 생성
+    const newSeries = getCus.map((customer) => ({
+      name: customer.cusName, // 고객 이름
+      data: getItem.map(() => Math.floor(Math.random() * 100)) // 각 고객에 대한 매출 데이터 예시
+    }));
+    
+    setSeries(newSeries);
+  }, [getCus, getItem]);
+
+  const options = {
     chart: {
       type: 'bar',
       height: 350,
       stacked: true,
     },
+    // 파랑 '#008FFB'/초록 '#00E396'/보라 '#775DD0'/주황 '#FEB019'
+    colors: ['#008FFB', '#00E396' ,'#775DD0'],
     plotOptions: {
       bar: {
         horizontal: true,
         dataLabels: {
           total: {
             enabled: true,
-            offsetX: 0,
+            offsetX: 5,
             style: {
               fontSize: '13px',
-              fontWeight: 900
+              fontWeight: 700
             }
           }
         }
@@ -45,12 +63,7 @@ const ItemOrderChart = () => {
       colors: ['#fff']
     },
     xaxis: {
-      categories: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
-      labels: {
-        formatter: function (val) {
-          return val + "K";
-        }
-      }
+      categories: getItem.map((item) => item.itemName), // 아이템 이름으로 카테고리 설정
     },
     yaxis: {
       title: {
@@ -72,7 +85,7 @@ const ItemOrderChart = () => {
       horizontalAlign: 'left',
       offsetX: 40
     }
-  });
+  };
 
   return (
     <div>

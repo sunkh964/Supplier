@@ -21,4 +21,8 @@
         <id column="TYPE_NUM" property="typeNum" />
         <result column="TYPE_NAME" property="typeName" />
     </resultMap>
+
+    <select id="getItem" resultMap="item">
+        SELECT * FROM ITEM;
+    </select>
 </mapper>

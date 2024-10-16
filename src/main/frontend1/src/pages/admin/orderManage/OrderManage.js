@@ -46,8 +46,8 @@ const OrderManage = () => {
               <td>123</td>
               <td>123</td>
               <td>123</td>
-              <td><div class="btn-container" onClick={()=>{navigaite('/admin/orderDetail')}}>
-                <a href="#" class="btn-3d blue">Button</a>
+              <td><div className="btn-container" onClick={()=>{navigaite('/admin/orderDetail')}}>
+                <a href="#" className="btn-3d blue">Button</a>
               </div></td>
             </tr>
             <tr>
@@ -62,8 +62,8 @@ const OrderManage = () => {
                       <td>{order.orderCount}</td>
                       <td>123</td>
                       <td>123</td>
-                      <td><div class="btn-container" onClick={()=>{navigaite('/admin/orderDetail')}}>
-                      <a href="#" class="btn-3d blue">Button</a>
+                      <td><div className="btn-container" onClick={()=>{navigaite('/admin/orderDetail')}}>
+                      <a href="#" className="btn-3d blue">Button</a>
                       </div></td>
                     </div>
                   );
