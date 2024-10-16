@@ -61,10 +61,10 @@
     </select>
 
     <!-- 매출 조회 -->
-    <select id="getSales" resultMap="orderItem">
-        SELECT *
-        FROM order_item
-    </select>
+<!--    <select id="getSales" resultMap="orderItem">-->
+<!--        SELECT *-->
+<!--        FROM order_item-->
+<!--    </select>-->
 
     <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderDetailList" resultMap="orderDetail">
