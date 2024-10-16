@@ -9,4 +9,9 @@
         <result column="CUS_ADDR" property="cusAddr"/>
         <result column="CUS_TEL" property="cusTel"/>
     </resultMap>
+
+    <select id="getCus" resultMap="cus">
+        SELECT * FROM CUS;
+    </select>
 </mapper>
+

@@ -61,6 +61,12 @@
     </select>
 
     <!-- 매출 조회 -->
+    <select id="getSales" resultMap="orderItem">
+        SELECT *
+        FROM order_item
+    </select>
+
+    <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderDetailList" resultMap="orderDetail">
         SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, I.ITEM_NAME, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.PRICE, I.STOCK, OD.ORDER_CNT
         , O.ORDER_NUM, O.ORDER_DATE, OD.DEPART_TIME, OD.ARRIVE_TIME, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, D.DELI_NUM, D.DELI_STATUS, OD.ORDER_NUM

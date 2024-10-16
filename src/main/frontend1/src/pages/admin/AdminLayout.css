@@ -1,6 +1,12 @@
 .adminLayout{
+<<<<<<< HEAD
    margin: 70px auto 0px auto;
    height: 87vh;
+=======
+   width: 80vw;
+   margin: 70px auto;
+   height: 90vh;
+>>>>>>> d0149faff7a9b85d5984754289214d1fa156e5c8
    border: 1px solid #A1BDED;
    border-radius: 10px;
    box-shadow: 3px 2px 5px 1px  #49698d80;
