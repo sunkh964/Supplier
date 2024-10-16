@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import "./ShipManage.css"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ShipManage = () => {
+
+  const navigate = useNavigate();
 
   // 주문서 저장
   const [orderList, setOrderList] = useState([]);
@@ -11,12 +14,13 @@ const ShipManage = () => {
   const [hideDelivered, setHideDelivered] = useState(false);
 
   // 정렬 상태 관리
-  const [sortChecked, setSortChecked] = useState('sortOrderNumDown'); 
+  const [sortChecked, setSortChecked] = useState('DESC'); 
 
   // 검색 정보 기본값 저장
   const [searchInfo, setSearchInfo] = useState({
     searchType: 'CUS_NAME',
-    searchValue: ''
+    searchValue: '',
+    sortValue: ''
   });
 
   // 검색 searchInfo onChange 함수
@@ -34,6 +38,8 @@ const ShipManage = () => {
 
   // 정렬 라디오 버튼 onChange 함수
   const handleSortChange = (e) => {
+    searchInfoChange(e);
+    searchBtn();
     setSortChecked(e.target.value);
   };
 
@@ -83,11 +89,6 @@ const ShipManage = () => {
     } else { return; }
   }
 
-  // 주문 취소 가능 여부
-  const isAbleCancel = (e) => {
-    console.log(e);
-  }
-
   return (
     <div className='ship-container'>
       <div className='top-div'>
@@ -95,12 +96,12 @@ const ShipManage = () => {
             {/* 정렬 라디오 버튼 */}
           <div className='sort-div btn-div'>
             <div className='radio-btn'>
-              <input type='radio' id='order-num-radio' name='sort-radio' className='radio' value='sortOrderNumDown' checked={sortChecked === 'sortOrderNumDown'} onChange={handleSortChange} />
-              <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
+              <input type='radio' id='addr-radio' name='sortValue' className='radio' value='DESC' checked={sortChecked === 'DESC'} onChange={(e) => {handleSortChange(e);}} />
+              <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
             </div>
             <div className='radio-btn'>
-              <input type='radio' id='addr-radio' name='sort-radio' className='radio' value='sortOrderNumUp' checked={sortChecked === 'sortOrderNumUp'} onChange={handleSortChange} />
-              <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
+              <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e);}} />
+              <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
             </div>
           </div>
           <div className='search-div'>
@@ -121,12 +122,12 @@ const ShipManage = () => {
       <div className='table-div'>
         <table>
           <colgroup>
-            <col width={"4%"} />
+            <col width={"5%"} />
             <col width={"10%"} />
             <col width={"15%"} />
             <col width={"8%"} />
             <col width={"*"} />
-            <col width={"10%"} />
+            <col width={"11%"} />
             <col width={"10%"} />
             <col width={"10%"} />
             <col width={"10%"} />
@@ -147,21 +148,25 @@ const ShipManage = () => {
           <tbody>
             {
               orderList.map((order, i) => {
-                let color;  
+                let color; let isAbleCancel;
                   switch (order.deliverVO.deliStatus) {
                     case '주문취소':
                       color = 'red';
+                      isAbleCancel = true;
                       break;
                     case '배송완료':
                       color = 'blue';
+                      isAbleCancel = true;
                       break;
                     case '배송중':
                       color = '';
+                      isAbleCancel = true;
                       break;
                     default:
                       color = 'grey';
+                      isAbleCancel = false;
                       break;
-                  } 
+                  }
 
                 // '배송완료'라면 <tr> 제거
                 if (hideDelivered && order.deliverVO.deliStatus === '배송완료') {
@@ -169,23 +174,20 @@ const ShipManage = () => {
                 }
 
                 return (
-                  <tr key={i}>
+                  <tr key={i} onClick={() => {navigate(`/admin/orderDetail/${order.orderNum}`);}}>
                     <td>{order.orderNum}</td>
                     <td>{order.cusVO.cusName}</td>
-                    <td>{order.orderDate}</td>
+                    <td className='long-text'>{order.orderDate}</td>
                     <td>{order.totalPrice.toLocaleString()}</td>
-                    <td>{order.cusVO.cusAddr}</td>
-                    <td>{order.cusVO.cusTel}</td>
+                    <td className='long-text'>{order.cusVO.cusAddr}</td>
+                    <td className='long-text'>{order.cusVO.cusTel}</td>
                     <td className={`deli-status deli-${color}`}>{order.deliverVO.deliStatus}</td>
                     <td><button type='button' className='cancel-order' 
-                    onClick={(e) => {
-                      // deleteOrder(order.orderNum);
-                      isAbleCancel(e);}}
-                    // disabled={true}
+                    onClick={(e) => {deleteOrder(order.orderNum)}} disabled={isAbleCancel}
                     >주문 취소</button></td>
                     <td><button type='button'
-                    onClick={() => {delisStart(order.orderNum)}}
-                    disabled={true}>배송 시작</button></td>
+                    onClick={() => {delisStart(order.orderNum)}} disabled={isAbleCancel}
+                    >배송 시작</button></td>
                   </tr>
                 )
               })

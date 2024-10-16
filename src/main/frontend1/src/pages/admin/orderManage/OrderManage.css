@@ -1,23 +1,22 @@
-
-.main-div{
+.main-div {
   font-size: 1.7rem;
   margin-top: 20px;
   margin-bottom: 40px;
 }
 
 /* --------------------------------------------테이블 */
-.table-div table { width: 100%; }
+.main-div .table-div table { width: 100%; }
 
-.table-div td {
+.main-div .table-div td {
   text-align: center;
   padding: 5px 15px;
 }
 
-.table-div tbody tr:hover {
+.main-div .table-div tbody tr:hover {
   background-color: #f3f3f3;
 }
 
-.table-div thead td {
+.main-div .table-div thead td {
   border-top: 2px solid #E1E7FF;
   border-bottom: 2px solid #E1E7FF;
   background-color: #F2F4FF;
@@ -25,7 +24,7 @@
   vertical-align: middle;
 }
 
-.table-div tbody tr {
+.main-div .table-div tbody tr {
   border-bottom: 2px solid #E8E9EE;
 }
 /* --------------------------------------테이블 */

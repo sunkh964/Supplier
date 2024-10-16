@@ -53,18 +53,14 @@
         <if test='searchValue != null and !searchValue.equals("")'>
             AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
         </if>
-        ORDER BY O.ORDER_NUM DESC;
+        ORDER BY O.ORDER_NUM
+        <choose>
+            <when test='sortValue == null or sortValue.equals("")'> DESC, OD.DETAIL_NUM DESC </when>
+            <otherwise> ${sortValue}, OD.DETAIL_NUM ${sortValue} </otherwise>
+        </choose>
     </select>
 
-<<<<<<< HEAD
     <!-- 매출 조회 -->
-    <select id="getSales" resultMap="orderItem">
-        SELECT ORDER_DATE, TOTAL_PRICE
-        FROM order_item
-    </select>
-
-=======
-    <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderDetailList" resultMap="orderDetail">
         SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, I.ITEM_NAME, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.PRICE, I.STOCK, OD.ORDER_CNT
         , O.ORDER_NUM, O.ORDER_DATE, OD.DEPART_TIME, OD.ARRIVE_TIME, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, D.DELI_NUM, D.DELI_STATUS, OD.ORDER_NUM
@@ -78,7 +74,17 @@
         <if test='searchValue != null and !searchValue.equals("")'>
             AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
         </if>
-        ORDER BY OD.ORDER_NUM DESC;
+        ORDER BY OD.ORDER_NUM
+        <choose>
+            <when test='sortValue == null or sortValue.equals("")'> DESC, OD.DETAIL_NUM DESC </when>
+            <otherwise> ${sortValue}, OD.DETAIL_NUM ${sortValue} </otherwise>
+        </choose>
+    </select>
+
+    <!-- 공급사 개별상품주문 목록 -->
+    <select id="getSales" resultMap="orderItem">
+        SELECT ORDER_DATE, TOTAL_PRICE
+        FROM order_item
     </select>
 
     <!--주문 번호 목록 조회-->
@@ -113,5 +119,4 @@
         SET O.DELI_NUM = 3, OD.DELI_NUM = 4, OD.DEPART_TIME = CURRENT_TIMESTAMP
         WHERE O.ORDER_NUM = #{orderNum} AND O.ORDER_NUM = OD.ORDER_NUM;
     </update>
->>>>>>> idw
 </mapper>

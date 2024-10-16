@@ -7,4 +7,6 @@ public class SearchVO {
     private String searchType;
     private String searchValue;
     private int orderNum;
+    private String sortType;
+    private String sortValue;
 }

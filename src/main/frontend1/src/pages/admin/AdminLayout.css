@@ -1,20 +1,19 @@
 .adminLayout{
-   width: 70%;
-   margin: 70px auto;
-   height: 90vh;
+   margin: 70px auto 0px auto;
+   height: 87vh;
    border: 1px solid #A1BDED;
    border-radius: 10px;
    box-shadow: 3px 2px 5px 1px  #49698d80;
-   width: 80vw;
+   width: 85vw;
 }
 
 .adminLayout-content{
    display: flex;
+   height: 100%;
 }
 
 .side-menu{
    width: 300px;
-   height: 89.8vh;
    background-color: #CEDAFD;
    border-top-left-radius: 9px;
    border-bottom-left-radius: 9px;

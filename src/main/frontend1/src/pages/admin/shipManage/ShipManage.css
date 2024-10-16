@@ -5,7 +5,11 @@
    flex-direction: column;
 }
 
-.top-div, .table-div {
+.ship-container td, .ship-container thead {
+   font-size: 14px;
+}
+
+.top-div, .ship-container .table-div {
    width: 100%;
 }
 
@@ -15,27 +19,27 @@
    margin-bottom: 20px; /* 보고 조정 좀 */
 }
 
-.row {
+.ship-container .row {
    display: flex;
    justify-content: space-between;
    align-items: center;
 }
 
-.sort-div { display: flex; }
-.sort-div:nth-child(2) { margin-top: 10px; }
+.ship-container .sort-div { display: flex; }
+.ship-container .sort-div:nth-child(2) { margin-top: 10px; }
 
-.search-div {
+.ship-container .search-div {
    display: flex;
    align-items: center;
 }
 
-.search-div select, .search-div input{
+.ship-container .search-div select, .ship-container .search-div input{
    margin-right: 5px;
    padding: 5px 10px;
 }
 
 /* 라디오 버튼 */
-.radio-btn {
+.ship-container .radio-btn {
    margin-right: 10px;
    display: flex;
    width: 150px;
@@ -54,18 +58,18 @@
    color: #46668A;
 }
 
-.cancel-order {
+.ship-container .cancel-order {
    background-color: #FFDACA !important;
    color: #B43127 !important;
 }
 
-.cancel-order:hover {
+.ship-container .cancel-order:hover {
    background-color: #ffbc9f !important;
 }
 
-.radio-btn input[type=radio] { display: none; }
+.ship-container .radio-btn input[type=radio] { display: none; }
 
-.radio-btn label {
+.ship-container .radio-btn label {
    border-radius: 3px;
    border: 2px solid #ccc;
    width: 100%;
@@ -76,8 +80,8 @@
 }
 
 /* -- 라디오 체크 시 */
-.radio-btn input[type=radio]:checked + label{
-   background-color: #A1BDED;
+.ship-container .radio-btn input[type=radio]:checked + label{
+   background-color: #CEDAFD;
    border: 2px solid #A1BDED;
    color: #184DA0;
    font-weight: 600;
@@ -125,7 +129,7 @@
 
 .table-div td {
    text-align: center;
-   padding: 5px 15px;
+   padding: 3px 7px;
 }
 
 .table-div thead td {

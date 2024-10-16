@@ -1,10 +1,6 @@
 package com.green.Supplier.orderItem.service;
 
-import com.green.Supplier.orderItem.vo.OrderAmountVO;
-import com.green.Supplier.orderItem.vo.OrderDetailVO;
-import com.green.Supplier.orderItem.vo.OrderItemVO;
-import com.green.Supplier.orderItem.vo.SalesDataVO;
-import com.green.Supplier.orderItem.vo.SearchVO;
+import com.green.Supplier.orderItem.vo.*;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,8 +53,4 @@ public class OrderItemServiceImpl implements OrderItemService{
     public List<OrderItemVO> getSales() {
         return sqlSession.selectList("orderItemMapper.getSales");
     }
-
-
-
-
 }

@@ -11,12 +11,13 @@ const ShipItemManage = () => {
    const [hideDelivered, setHideDelivered] = useState(false);
 
    // 정렬 상태 관리
-   const [sortChecked, setSortChecked] = useState('sortOrderNumDown'); 
+   const [sortChecked, setSortChecked] = useState('DESC'); 
 
    // 검색 정보 기본값 저장
    const [searchInfo, setSearchInfo] = useState({
-      searchType: 'CUS_NAME',
-      searchValue: ''
+      searchType: 'ITME_NAME',
+      searchValue: '',
+      sortValue: 'DESC'
    });
 
    // 검색 searchInfo onChange 함수
@@ -24,7 +25,7 @@ const ShipItemManage = () => {
       setSearchInfo({
          ...searchInfo,
          [e.target.name] : e.target.value
-         })
+      })
    };
 
    // 배송완료 제외 체크박스 onChange 함수
@@ -71,15 +72,27 @@ const ShipItemManage = () => {
       } else { return; }
    }
 
+   // 검색하기 버튼 함수
+   const searchBtn = () => {
+      console.log("검색 실행");
+      console.log(searchInfo);
+      axios.post(`/orderItem/getOrderDetailList`, searchInfo)
+      .then((res) => {
+      setOrderDetailList(res.data);
+      console.log("검색 성공");
+      })
+      .catch((error) => {alert(error);});
+   }
 
-   const drawDetailList = Object.keys(orderDetailList).reverse().map((orderNum, i) => {
+
+   const drawDetailList = Object.keys(orderDetailList).map((orderNum, i) => {
       const details = orderDetailList[orderNum];
 
       // '배송완료'가 있는지 여부를 확인
       const hasDelivered = details.some(each => each.deliverVO.deliStatus === '배송완료');
 
       return (
-         details.reverse().map((each, j) => {
+         details.map((each, j) => {
             let color;  
             switch (each.deliverVO.deliStatus) {
                case '주문취소':
@@ -114,7 +127,7 @@ const ShipItemManage = () => {
                   <td>{each.itemVO.itemName}</td>
                   <td>{each.itemVO.stock}</td>
                   <td>{each.orderCnt}</td>
-                  <td>{each.itemVO.price}</td>
+                  <td>{each.itemVO.price.toLocaleString()}</td>
                   <td>{each.detailPrice.toLocaleString()}</td>
                   <td>{each.orderItemVO ? each.orderItemVO.orderDate : '-'}</td>
                   <td>{each.departTime ? each.departTime : '-'}</td>
@@ -136,20 +149,20 @@ const ShipItemManage = () => {
                {/* 정렬 라디오 버튼 */}
             <div className='sort-div btn-div'>
                <div className='radio-btn'>
-                  <input type='radio' id='order-num-radio' name='sort-radio' className='radio' value='sortOrderNumDown' checked={sortChecked === 'sortOrderNumDown'} onChange={handleSortChange} />
-                  <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
+                  <input type='radio' id='addr-radio' name='sortValue' className='radio' value='DESC' checked={sortChecked === 'DESC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e); searchBtn();}} />
+                  <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
                </div>
                <div className='radio-btn'>
-                  <input type='radio' id='addr-radio' name='sort-radio' className='radio' value='sortOrderNumUp' checked={sortChecked === 'sortOrderNumUp'} onChange={handleSortChange} />
-                  <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
+                  <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e); searchBtn();}} />
+                  <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
                </div>
             </div>
             <div className='search-div'>
                <select name='searchType'>
                   <option value={"ITEM_NAME"}>상품명</option>
                </select>
-               <input type='text' name='searchValue'></input>
-               <button type='button'>검색</button>
+               <input type='text' name='searchValue' onChange={(e) => {searchInfoChange(e)}}></input>
+               <button type='button' onClick={() => {searchBtn()}}>검색</button>
             </div>
             </div>
             <div className='sort-div btn-div'>
@@ -161,19 +174,19 @@ const ShipItemManage = () => {
          <div className='table-div'>
             <table>
                <colgroup>
-                  <col width={"4%"} />
-                  <col width={"4%"} />
                   <col width={"5%"} />
                   <col width={"5%"} />
+                  <col width={"6%"} />
+                  <col width={"4%"} />
                   <col width={"*%"} />
+                  <col width={"3%"} />
+                  <col width={"6%"} />
                   <col width={"4%"} />
                   <col width={"4%"} />
-                  <col width={"4%"} />
-                  <col width={"4%"} />
-                  <col width={"9%"} />
-                  <col width={"9%"} />
-                  <col width={"9%"} />
-                  <col width={"7%"} />
+                  <col width={"8%"} />
+                  <col width={"8%"} />
+                  <col width={"8%"} />
+                  <col width={"6%"} />
                   <col width={"7%"} />
                   <col width={"7%"} />
                </colgroup>
