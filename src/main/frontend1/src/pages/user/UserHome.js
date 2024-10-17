@@ -11,39 +11,39 @@ const UserHome = () => {
             <h2>추천 제품</h2>
             <div className="product-list">
               <div className="product-card">
-                  <img src={'http://localhost:8081/images/그림2.png'} alt="그림2" />
-                  <h3>제품 이름 1</h3>
-                  <p>제품 설명 1</p>
+                  <img src={'http://localhost:8081/images/16232bl.jpg'} alt="그림2" />
+                  <h3>니들</h3>
+                  <p>10000원</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
               <div className="product-card">
-                  <img src={'http://localhost:8081/images/images.png'}  alt="제품 2" />
-                  <h3>제품 이름 2</h3>
-                  <p>제품 설명 2</p>
+                  <img src={'http://localhost:8081/images/1574069809000_m.png'}  alt="제품 2" />
+                  <h3>석션 카테터</h3>
+                  <p>15000원</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
               <div className="product-card">
-                  <img src="product3.jpg" alt="제품 3" />
-                  <h3>제품 이름 3</h3>
-                  <p>제품 설명 3</p>
+                  <img  src={'http://localhost:8081/images/1689662196937m0.jpg'} alt="제품 3" />
+                  <h3>라텍스 장갑</h3>
+                  <p>20000원</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
               <div className="product-card">
-                  <img src="product4.jpg" alt="제품 4" />
-                  <h3>제품 이름 4</h3>
-                  <p>제품 설명 4</p>
+                  <img src={'http://localhost:8081/images/40131am.jpg'} alt="제품 4" />
+                  <h3>리도칸 크림</h3>
+                  <p>20000원</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
               <div className="product-card">
-                  <img src="product5.jpg" alt="제품 5" />
-                  <h3>제품 이름 5</h3>
-                  <p>제품 설명 5</p>
+                  <img src={'http://localhost:8081/images/40132am.jpg'} alt="제품 5" />
+                  <h3>리포라제주</h3>
+                  <p>15000원</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
               <div className="product-card">
-                  <img src="product6.jpg" alt="제품 6" />
-                  <h3>제품 이름 6</h3>
-                  <p>제품 설명 6</p>
+                  <img src={'http://localhost:8081/images/1689840293622m0.jfif'} alt="제품 6" />
+                  <h3>포비돈</h3>
+                  <p>10000원</p>
                   <button className='btn0' onClick={()=>{navigaite('cart')}} >장바구니에 담기</button>
               </div>
           </div>
