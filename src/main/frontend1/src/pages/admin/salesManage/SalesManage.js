@@ -49,17 +49,17 @@ const SalesManage = () => {
     .filter(item => {
       const orderDate = new Date(item.orderDate); // orderDate를 Date 객체로 변환
       const currentDate = new Date(); // 현재
-      return orderDate.getFullYear() === currentDate.getFullYear() && 
-             orderDate.getMonth() === currentDate.getMonth(); 
+      return orderDate.getFullYear() == currentDate.getFullYear() && 
+             orderDate.getMonth() == currentDate.getMonth(); 
     })
-    .reduce((accumulator, current) => accumulator + current.totalPrice, 0); // totalPrice 합산
+    .reduce((total, t) => total + t.totalPrice, 0); 
 
   // 당월 주문량 계산
   const orderCount = getSales.filter(item => {
     const orderDate = new Date(item.orderDate);
     const currentDate = new Date();
-    return orderDate.getFullYear() === currentDate.getFullYear() &&
-           orderDate.getMonth() === currentDate.getMonth();
+    return orderDate.getFullYear() == currentDate.getFullYear() &&
+           orderDate.getMonth() == currentDate.getMonth();
   }).length;
 
   // 당월 문자 추출

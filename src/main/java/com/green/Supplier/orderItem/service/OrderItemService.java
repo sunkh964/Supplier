@@ -9,6 +9,11 @@ public interface OrderItemService {
     //<!-- 당월 매출 조회 -->
     List<OrderItemVO> getSales();
 
+    /* 제품 당 주문량 조회 */
+    List<OrderDetailVO> getOrderCnt();
+
+//<!--===============================================================-->
+
     List<OrderItemVO> getOrderList(SearchVO searchVO);
 
 //    주문 상세내역 조회

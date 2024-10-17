@@ -47,12 +47,20 @@ public class OrderItemController {
         System.out.println("Requested Order Number: " + orderNum);
         return orderItemService.getDetail(orderNum);
     }
-
+//<!--===============================================================-->
     //<!-- 매출 조회 -->
     @GetMapping("/getSales")
     public List<OrderItemVO> getSales(){
         return orderItemService.getSales();
     }
+    /* 제품당 주문량 조회 */
+    @GetMapping("/getOrderCnt")
+    public List<OrderDetailVO> getOrderCnt(){
+        return orderItemService.getOrderCnt();
+    }
+
+//<!--===============================================================-->
+
 //    공급사 개별상품 목록
     @PostMapping("/getOrderDetailList")
     public Map<Integer, List<OrderDetailVO>> getOrderDetailList(@RequestBody(required = false) SearchVO searchVO) {
