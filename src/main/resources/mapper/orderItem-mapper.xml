@@ -36,12 +36,6 @@
         <association property="cusVO" resultMap="cusMapper.cus" />
     </resultMap>
 
-    <resultMap id="salesData" type="com.green.Supplier.orderItem.vo.SalesDataVO">
-        <result column="orderMonth" property="orderMonth"/>
-        <result column="totalPrice" property="totalPrice"/>
-        <result column="orderCount" property="orderCount"/>
-    </resultMap>
-
     <!-- 공급사 주문서 목록 -->
     <select id="getOrderList" resultMap="orderItem">
         SELECT O.ORDER_NUM, C.CUS_NUM, C.CUS_NAME, O.ORDER_DATE, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, O.DELI_NUM, D.DELI_STATUS
@@ -60,8 +54,7 @@
         </choose>
     </select>
 
-
-
+    
     <!-- 주문 상세 내역서 조회 -->
     <select id="getOrderDetail" resultMap="orderItem">
         SELECT
@@ -105,7 +98,7 @@
         ORDER BY
         O.ORDER_NUM;
     </select>
-
+    
     <!-- 주문 상세 내역서 조회 -->
     <select id="getDetail" resultMap="orderDetail">
         SELECT
@@ -149,15 +142,24 @@
         ORDER BY
         O.ORDER_NUM;
     </select>
-
-
+    
 
     <!-- 매출 조회 -->
 <!--    <select id="getSales" resultMap="orderItem">-->
 <!--        SELECT *-->
 <!--        FROM order_item-->
 <!--    </select>-->
-
+    
+    <!-- 제품 당 주문량 조회-->
+    <select id="getOrderCountByCusNumForItems" resultMap="orderDetail">
+        SELECT OD.ITEM_NUM,
+               SUM(OD.ORDER_CNT) AS totalOrderCnt
+        FROM ORDER_DETAIL OD
+        JOIN ORDER_ITEM OI ON OD.ORDER_NUM = OI.ORDER_NUM
+        WHERE OI.CUS_NUM = #{cusNum}
+        GROUP BY OD.ITEM_NUM
+    </select>
+    
     <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderDetailList" resultMap="orderDetail">
         SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, I.ITEM_NAME, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.PRICE, I.STOCK, OD.ORDER_CNT

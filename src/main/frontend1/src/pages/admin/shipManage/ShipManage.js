@@ -102,6 +102,12 @@ const ShipManage = () => {
             <div className='radio-btn'>
               <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e);}} />
               <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
+              <input type='radio' id='order-num-radio' name='sort-radio' className='radio' value='sortOrderNumDown' checked={sortChecked === 'sortOrderNumDown'} onChange={handleSortChange} />
+              <label for='order-num-radio'>주문 번호 <i className="bi bi-caret-up-fill" /></label>
+            </div>
+            <div className='radio-btn'>
+              <input type='radio' id='addr-radio' name='sort-radio' className='radio' value='sortOrderNumUp' checked={sortChecked === 'sortOrderNumUp'} onChange={handleSortChange} />
+              <label for='addr-radio'>주문 번호 <i className="bi bi-caret-down-fill" /></label>
             </div>
           </div>
           <div className='search-div'>
