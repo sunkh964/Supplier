@@ -39,7 +39,6 @@ const ShipManage = () => {
   // 정렬 라디오 버튼 onChange 함수
   const handleSortChange = (e) => {
     searchInfoChange(e);
-    searchBtn();
     setSortChecked(e.target.value);
   };
 
@@ -60,7 +59,7 @@ const ShipManage = () => {
 
   // 주문품목 불러오기
   useEffect(() => {
-    const fetchOrderDetailList = async () => {
+    const fetchOrderList = async () => {
         try {
           const res = await axios.post(`/orderItem/getOrderList`, searchInfo);
           setOrderList(res.data);
@@ -68,22 +67,39 @@ const ShipManage = () => {
           alert(error);
         }
     };
-    fetchOrderDetailList();
-  }, [refresh]);
+    fetchOrderList();
+  }, [refresh, searchInfo.sortValue]);
   
+  // 배송 시작 후 변경 값 저장
+  const [orderDetail, setOrderDetail] = useState([]);
+
   // 배송 시작 버튼 함수
-  const delisStart = (orderNum) => {
-    if (window.confirm('배송을 시작하시겠습니까?')) {
-        axios.put(`/orderItem/setDelisStart/${orderNum}`)
+  const delisStart = (orderDetailList) => {
+    console.log(orderDetailList);
+    const addDetail = orderDetailList.map((detail, i) => (
+      {
+        detailNum: detail.detailNum,
+        itemNum: detail.itemNum
+      }
+    ))
+    setOrderDetail(prevDetails => [...prevDetails, ...addDetail]);
+  }
+
+  // 배송 시작 시 put
+  useEffect(() => {
+    if (orderDetail.length != 0) {
+      if (window.confirm('배송을 시작하시겠습니까?')) {
+        axios.put(`/orderItem/setDelisStart`, orderDetail)
         .then((res) => {setRefresh(prev => !prev); })
         .catch((error) => {alert(error)});
-    } else { return; }
-  }
+      } else { return; }
+    }
+  }, [orderDetail]);
   
   // 주문 취소 함수 버튼
-  const deleteOrder = (orderNum) => {
+  const cancelOrder = (orderNum) => {
     if (window.confirm('상품의 주문을 취소하시겠습니까?')) {
-        axios.delete(`/orderItem/deleteOrder/${orderNum}`)
+        axios.put(`/orderItem/cancelOrder/${orderNum}`)
         .then((res) => { setRefresh(prev => !prev); })
         .catch((error) => {alert(error)});
     } else { return; }
@@ -121,7 +137,7 @@ const ShipManage = () => {
         </div>
         <div className='sort-div btn-div'>
           <input type='checkbox' id='after-deliver' className='after-deliver' checked={hideDelivered} onChange={handleCheckboxChange} />
-          <label for='after-deliver'>배송 완료 제외</label>
+          <label for='after-deliver'>배송 완료 항목 제외</label>
         </div>
       </div>
 
@@ -180,8 +196,8 @@ const ShipManage = () => {
                 }
 
                 return (
-                  <tr key={i} onClick={() => {navigate(`/admin/orderDetail/${order.orderNum}`);}}>
-                    <td>{order.orderNum}</td>
+                  <tr key={i}>
+                    <td onClick={() => {navigate(`/admin/orderDetail/${order.orderNum}`);}}>{order.orderNum}</td>
                     <td>{order.cusVO.cusName}</td>
                     <td className='long-text'>{order.orderDate}</td>
                     <td>{order.totalPrice.toLocaleString()}</td>
@@ -189,10 +205,10 @@ const ShipManage = () => {
                     <td className='long-text'>{order.cusVO.cusTel}</td>
                     <td className={`deli-status deli-${color}`}>{order.deliverVO.deliStatus}</td>
                     <td><button type='button' className='cancel-order' 
-                    onClick={(e) => {deleteOrder(order.orderNum)}} disabled={isAbleCancel}
+                    onClick={(e) => {cancelOrder(order.orderNum)}} disabled={isAbleCancel}
                     >주문 취소</button></td>
                     <td><button type='button'
-                    onClick={() => {delisStart(order.orderNum)}} disabled={isAbleCancel}
+                    onClick={() => {delisStart(order.orderDetailList)}} disabled={isAbleCancel}
                     >배송 시작</button></td>
                   </tr>
                 )

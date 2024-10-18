@@ -41,28 +41,38 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
-    public List<Integer> getOrderNumList() {
-        return sqlSession.selectList("orderItemMapper.getOrderNumList");
+    public List<OrderItemVO> getOrderNumList(String sortValue) {
+        return sqlSession.selectList("orderItemMapper.getOrderNumList", sortValue);
     }
 
     @Override
-    public void deleteOrder(int orderNum) {
-        sqlSession.delete("orderItemMapper.deleteOrder", orderNum);
+    public void cancelOrder(int orderNum) {
+        sqlSession.delete("orderItemMapper.cancelOrder", orderNum);
     }
 
     @Override
-    public void deleteDetail(int detailNum) {
-        sqlSession.delete("orderItemMapper.deleteDetail", detailNum);
+    public void cancelDetail(OrderDetailVO detailVO) {
+        sqlSession.delete("orderItemMapper.cancelDetail", detailVO.getItemNum());
     }
 
     @Override
-    public void setDeliStart(int detailNum) {
-        sqlSession.update("orderItemMapper.setDeliStart", detailNum);
+    public int isAllCanceled(int orderNum) {
+        return sqlSession.selectOne("orderItemMapper.isAllCanceled", orderNum);
     }
 
     @Override
-    public void setDelisStart(int orderNum) {
-        sqlSession.update("orderItemMapper.setDelisStart", orderNum);
+    public void setAllCanceled(int orderNum) {
+        sqlSession.update("orderItemMapper.setAllCanceled", orderNum);
+    }
+
+    @Override
+    public void setDeliStart(OrderDetailVO orderDetailVO) {
+        sqlSession.update("orderItemMapper.setDeliStart", orderDetailVO);
+    }
+
+    @Override
+    public void setDelisStart(OrderDetailVO orderDetailVO) {
+        sqlSession.update("orderItemMapper.setDelisStart", orderDetailVO);
     }
 
     // <!-- 매출 조회 -->

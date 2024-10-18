@@ -20,7 +20,6 @@ public class OrderItemController {
     @PostMapping("/getOrderList")
     public List<OrderItemVO> getOrderList(@RequestBody(required = false) SearchVO searchVO) {
         List<OrderItemVO> result = orderItemService.getOrderList(searchVO);
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ result);
         return result;
     }
 
@@ -29,16 +28,6 @@ public class OrderItemController {
     public List<OrderItemVO> getOrderDetail(@PathVariable("orderNum") int orderNum) {
         System.out.println("Requested Order Number: " + orderNum);
         return orderItemService.getOrderDetail(orderNum);
-        //        try {
-//            List<OrderItemVO> orderDetails = orderItemService.getOrderDetail(orderNum);
-//            if (orderDetails.isEmpty()) {
-//                System.out.println("No details found for order number: " + orderNum);
-//            }
-//            return orderDetails;
-//        } catch (Exception e) {
-//            e.printStackTrace(); // 예외 로그 출력
-//            return Collections.emptyList(); // 빈 리스트 반환
-//        }
     }
 
     //주문 상세 내역 확인
@@ -55,45 +44,47 @@ public class OrderItemController {
     }
 //    공급사 개별상품 목록
     @PostMapping("/getOrderDetailList")
-    public Map<Integer, List<OrderDetailVO>> getOrderDetailList(@RequestBody(required = false) SearchVO searchVO) {
-        Map<Integer, List<OrderDetailVO>> orderMap = new HashMap<>();
+    public List<OrderItemVO> getOrderDetailList(@RequestBody(required = false) SearchVO searchVO) {
+        System.out.println(searchVO);
 
         //주문 정보에서 주문번호만 조회 [1,2,3]
-        List<Integer> orderNumList =  orderItemService.getOrderNumList();
+        List<OrderItemVO> orderItemList =  orderItemService.getOrderNumList(searchVO.getSortValue());
 
-        for(int orderNum : orderNumList){
-            searchVO.setOrderNum(orderNum);
+        for(OrderItemVO orderItem : orderItemList) {
+            searchVO.setOrderNum(orderItem.getOrderNum());
             List<OrderDetailVO> result = orderItemService.getOrderDetailList(searchVO);
-            orderMap.put(orderNum, result);
+
+            orderItem.setOrderDetailList(result);
         }
 
-        System.out.println(orderMap);
-        return orderMap;
+        System.out.println(orderItemList);
+        return orderItemList;
     }
 
-//   주문 취소=주문서 삭제
-    @DeleteMapping("/deleteOrder/{orderNum}")
-    void deleteOrder(@PathVariable("orderNum") int orderNum) {
-        orderItemService.deleteOrder(orderNum);
+//   주문 취소 = 주문 취소로 업데이트
+    @PutMapping("/cancelOrder/{orderNum}")
+    void cancelOrder(@PathVariable("orderNum") int orderNum) {
+        orderItemService.cancelOrder(orderNum);
     }
 
 //   개별 주문 취소
-    @DeleteMapping("/deleteDetail/{detailNum}")
-    void deleteDetail(@PathVariable("detailNum") int detailNum) {
-        System.out.println(detailNum);
-        orderItemService.deleteDetail(detailNum);
+    @PutMapping("/cancelDetail")
+    void cancelDetail(@RequestBody OrderDetailVO detailVO) {
+        orderItemService.cancelDetail(detailVO);
     }
 
 //    개별 상품 배송 시작
-    @PutMapping("/setDeliStart/{detailNum}")
-    void setDeliStart(@PathVariable("detailNum") int detailNum) {
-        orderItemService.setDeliStart(detailNum);
+    @PutMapping("/setDeliStart")
+    void setDeliStart(@RequestBody OrderDetailVO orderDetailVO) {
+        orderItemService.setDeliStart(orderDetailVO);
     }
 
 //    상품 배송 시작
-    @PutMapping("/setDelisStart/{orderNum}")
-    void setDelisStart(@PathVariable("orderNum") int orderNum) {
-        orderItemService.setDelisStart(orderNum);
+    @PutMapping("/setDelisStart")
+    void setDelisStart(@RequestBody List<OrderDetailVO> orderDetailList) {
+        for (OrderDetailVO orderDetail : orderDetailList) {
+            orderItemService.setDelisStart(orderDetail);
+        }
     }
 }
 

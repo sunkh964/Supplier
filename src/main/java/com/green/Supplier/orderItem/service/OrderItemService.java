@@ -1,6 +1,7 @@
 package com.green.Supplier.orderItem.service;
 
 import com.green.Supplier.orderItem.vo.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -21,17 +22,23 @@ public interface OrderItemService {
     List<OrderDetailVO> getOrderDetailList(SearchVO searchVO);
 
 //    주문번호 목록 조회
-    List<Integer> getOrderNumList();
+    List<OrderItemVO> getOrderNumList(String sortValue);
 
-//   주문 취소=주문서 삭제
-    void deleteOrder(int orderNum);
+//   주문 취소 = 주문 취소로 업데이트
+    void cancelOrder(int orderNum);
 
 //   개별 주문 취소
-    void deleteDetail(int detailNum);
+    void cancelDetail(OrderDetailVO detailVO);
+
+//    전체 주문취소인지 파악
+    int isAllCanceled(int orderNum);
+
+//    상세 내역이 전부 주문취소면 주문서도 주문취소로 변경
+    void setAllCanceled(int orderNum);
 
 //    개별 주문 배송 시작
-    void setDeliStart(int detailNum);
+    void setDeliStart(OrderDetailVO orderDetailVO);
 
 //    주문 배송 시작
-    void setDelisStart(int orderNum);
+    void setDelisStart(OrderDetailVO orderDetailVO);
 }

@@ -149,6 +149,7 @@
    height: 100%;
 }
 
-.deli-red { color:#E35F4B; }
+.deli-red, .stock-red { color:#E35F4B; }
 .deli-blue { color:#A1BDED; }
 .deli-grey { color: #bbb; }
+.bold { font-weight: 600; }

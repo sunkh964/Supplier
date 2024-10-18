@@ -3,6 +3,8 @@ package com.green.Supplier.orderItem.vo;
 import com.green.Supplier.cus.vo.CusVO;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class OrderItemVO {
     private int orderNum;
@@ -12,5 +14,5 @@ public class OrderItemVO {
     private int deliNum;
     private CusVO cusVO;
     private DeliverVO deliverVO;
-    private OrderDetailVO orderDetailVO;
+    private List<OrderDetailVO> orderDetailList;
 }
