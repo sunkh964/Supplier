@@ -15,7 +15,7 @@ const ShipItemManage = () => {
 
    // 검색 정보 기본값 저장
    const [searchInfo, setSearchInfo] = useState({
-      searchType: 'ITME_NAME',
+      searchType: 'ITEM_NAME',
       searchValue: '',
       sortValue: 'DESC'
    });
@@ -47,67 +47,124 @@ const ShipItemManage = () => {
          try {
             const res = await axios.post(`/orderItem/getOrderDetailList`, searchInfo);
             setOrderDetailList(res.data);
-         } catch (error) {
-            alert(error);
-         }
+         } catch (error) { alert(error); }
       };
       fetchOrderDetailList();
-   }, [refresh]);
-   
+   }, [refresh, searchInfo.sortValue]);
+
+   // 배송 시작 후 변경 값 저장
+   const [orderDetail, setOrderDetail] = useState({
+      itemNum: 0,
+      detailNum: 0
+   });
+
    // 배송 시작 버튼 함수
-   const deliStart = (detailNum) => {
-      if (window.confirm('배송을 시작하시겠습니까?')) {
-         axios.put(`/orderItem/setDeliStart/${detailNum}`)
-         .then((res) => {setRefresh(prev => !prev); })
-         .catch((error) => {alert(error)});
-      } else { return; }
+   const deliStart = (each) => {
+      setOrderDetail({
+         ...orderDetail,
+         orderCnt: each.orderCnt,
+         itemNum: each.itemNum,
+         detailNum: each.detailNum
+      });
    }
+
+   // 배송 시작 시 put
+   useEffect(() =>{
+      if (orderDetail.detailNum != 0) {
+         if (window.confirm('배송을 시작하시겠습니까?')) {
+            axios.put(`/orderItem/setDeliStart`, orderDetail)
+            .then((res) => {setRefresh(prev => !prev); })
+            .catch((error) => {alert(error)});
+         } else { return; }
+      }
+   }
+   , [orderDetail]);
    
+   // 개별 상품 주문 취소 시 주문서 번호도 들고가야함
+   const [cancelOrder, setCancelOrder] = useState({
+      orderNum: 0,
+      detailNum : 0
+   });
+
    // 개별 상품 주문 취소 함수 버튼
-   const deleteDetail = (detailNum) => {
-      if (window.confirm('상품의 주문을 취소하시겠습니까?')) {
-         axios.delete(`/orderItem/deleteDetail/${detailNum}`)
-         .then((res) => { setRefresh(prev => !prev); })
-         .catch((error) => {alert(error)});
-      } else { return; }
+   const cancelDetail = (each) => {
+      setCancelOrder({
+         ...cancelOrder,
+         orderNum: each.orderNum,
+         detailNum : each.detailNum
+      })
    }
+
+   // 개별 상품 주문 취소 put
+   useEffect(() => {
+      if (cancelOrder.orderNum != 0) {
+         if (window.confirm('상품의 주문을 취소하시겠습니까?')) {
+            axios.put(`/orderItem/cancelDetail`, cancelOrder)
+            .then((res) => { setRefresh(prev => !prev); })
+            .catch((error) => {alert(error)});
+         } else { return; }
+      }
+   }, [cancelOrder]);
 
    // 검색하기 버튼 함수
    const searchBtn = () => {
-      console.log("검색 실행");
-      console.log(searchInfo);
       axios.post(`/orderItem/getOrderDetailList`, searchInfo)
       .then((res) => {
-      setOrderDetailList(res.data);
-      console.log("검색 성공");
+         setOrderDetailList(res.data);
+         console.log("검색 성공");
       })
       .catch((error) => {alert(error);});
    }
 
-
-   const drawDetailList = Object.keys(orderDetailList).map((orderNum, i) => {
-      const details = orderDetailList[orderNum];
+   // 리스트 그리기
+   const drawDetailList = orderDetailList.map((orderItem, i) => {
+      const details = orderItem.orderDetailList;
 
       // '배송완료'가 있는지 여부를 확인
       const hasDelivered = details.some(each => each.deliverVO.deliStatus === '배송완료');
 
       return (
          details.map((each, j) => {
-            let color;  
+            let deliColor; let stockColor; let isAbleCancel; let isAbleDeliver;
             switch (each.deliverVO.deliStatus) {
                case '주문취소':
-                  color = 'red';
+                  deliColor = 'red';
+                  isAbleCancel = true;
+                  isAbleDeliver = true;
                   break;
+         
                case '배송완료':
-                  color = 'blue';
+                  deliColor = 'blue';
+                  isAbleCancel = true;
+                  isAbleDeliver = true;
                   break;
+         
                case '배송중':
-                  color = '';
+                  deliColor = '';
+                  isAbleCancel = true;
+                  isAbleDeliver = true;
                   break;
+         
+               case '상품준비중':
+               case '주문확인중':
+                  if (each.itemVO.stock < each.orderCnt) {
+                     deliColor = 'red';
+                     stockColor = 'red'
+                     isAbleCancel = false;
+                     isAbleDeliver = true;
+                  } else {
+                     deliColor = 'grey';
+                     isAbleCancel = false;
+                     isAbleDeliver = false;
+                  }
+                  break;
+         
                default:
-                  color = 'grey';
+                  deliColor = 'grey';
+                  isAbleCancel = false;
+                  isAbleDeliver = false;
                   break;
-            }
+         }
 
             // '배송완료'라면 <tr> 제거
             if (hideDelivered && each.deliverVO.deliStatus === '배송완료') {
@@ -116,25 +173,21 @@ const ShipItemManage = () => {
 
             return (
                <tr key={each.detailNum}>
-                  {j === 0 ? (
-                     <td rowSpan={hasDelivered && hideDelivered ? 0 : details.length}>
-                        {each.orderNum}
-                     </td>
-                  ) : null}
+                  {j === 0 ? (<td rowSpan={hasDelivered && hideDelivered ? 0 : details.length}>{each.orderNum}</td>) : null}
                   <td>{each.detailNum}</td>
                   <td>{each.typeVO.typeName}</td>
                   <td><img src={`http://localhost:8081/images/${each.itemVO.itemImg}`} className='item-img' /></td>
                   <td>{each.itemVO.itemName}</td>
                   <td>{each.itemVO.stock}</td>
-                  <td>{each.orderCnt}</td>
+                  <td className={`stock-${stockColor}`}>{each.orderCnt}</td>
                   <td>{each.itemVO.price.toLocaleString()}</td>
                   <td>{each.detailPrice.toLocaleString()}</td>
-                  <td>{each.orderItemVO ? each.orderItemVO.orderDate : '-'}</td>
+                  {j === 0 ? (<td rowSpan={hasDelivered && hideDelivered ? 0 : details.length}>{orderItem.orderDate}</td>) : null}
                   <td>{each.departTime ? each.departTime : '-'}</td>
                   <td>{each.arriveTime ? each.arriveTime : '-'}</td>
-                  <td className={`deli-status deli-${color}`}>{each.deliverVO.deliStatus}</td>
-                  <td><button type='button' className='cancel-order' onClick={() => deleteDetail(each.detailNum)}>주문 취소</button></td>
-                  <td><button type='button' onClick={() => {deliStart(each.detailNum)}}>배송 시작</button></td>
+                  <td className={`deli-status deli-${deliColor}`}>{each.deliverVO.deliStatus}</td>
+                  <td><button type='button' className='cancel-order' onClick={() => cancelDetail(each)} disabled={isAbleCancel}>주문 취소</button></td>
+                  <td><button type='button' onClick={() => {deliStart(each)}} disabled={isAbleDeliver}>배송 시작</button></td>
                </tr>
             );
          })
@@ -149,11 +202,11 @@ const ShipItemManage = () => {
                {/* 정렬 라디오 버튼 */}
             <div className='sort-div btn-div'>
                <div className='radio-btn'>
-                  <input type='radio' id='addr-radio' name='sortValue' className='radio' value='DESC' checked={sortChecked === 'DESC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e); searchBtn();}} />
+                  <input type='radio' id='addr-radio' name='sortValue' className='radio' value='DESC' checked={sortChecked === 'DESC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e);}} />
                   <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
                </div>
                <div className='radio-btn'>
-                  <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e); searchBtn();}} />
+                  <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e);}} />
                   <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
                </div>
             </div>
@@ -167,7 +220,7 @@ const ShipItemManage = () => {
             </div>
             <div className='sort-div btn-div'>
             <input type='checkbox' id='after-deliver' className='after-deliver' checked={hideDelivered} onChange={handleCheckboxChange} />
-            <label for='after-deliver'>배송 완료 제외</label>
+            <label for='after-deliver'>배송 완료 항목 제외</label>
             </div>
          </div>
 
