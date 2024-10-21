@@ -9,7 +9,7 @@ const AdminLayout = () => {
 
   const [adminMenu, setAdminMenu] = useState([
     {
-      title: '수주 관리',
+      title: '수주관리',
       path: '/admin/orderManage',
       subMenu: [
         { title: '주문 목록', path: '/admin/orderManage' },
@@ -17,7 +17,7 @@ const AdminLayout = () => {
       ]
     },
     {
-      title: '출하 관리',
+      title: '출하관리',
       path: '/admin/shipManage',
       subMenu: [
         { title: '주문서 관리', path: '/admin/shipManage' },
@@ -25,7 +25,7 @@ const AdminLayout = () => {
       ]
     },
     {
-      title: '제품 관리',
+      title: '제품관리',
       path: '/admin/itemManage',
       subMenu: [
         { title: '재고 목록', path: '/admin/itemManage' },
@@ -33,10 +33,9 @@ const AdminLayout = () => {
       ]
     },
     {
-      title: '매출 관리',
+      title: '매출관리',
       path: '/admin/salesManage',
       subMenu: [
-        { title: '직원 스케쥴 목록', path: '/admin/salesManage' }
       ]
     }
   ]);
@@ -54,6 +53,12 @@ const AdminLayout = () => {
 
   return (
     <div className='adminLayout'>
+      <div className='admin-first'>
+        <div></div>
+        <div>STAFF PAGE</div>
+        <div></div>
+      </div>
+      
       <div className='adminLayout-content'>
         <div className='side-menu'>
           {adminMenu.map((menu, index) => (

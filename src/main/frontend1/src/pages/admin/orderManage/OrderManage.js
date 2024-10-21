@@ -21,9 +21,9 @@ const OrderManage = () => {
     }, []);
 
   return (
-    <div>
-      <div className='main-div'>
-      주문 내역
+    <div className='orderManage'>
+      <div className='sales-title'>
+        <sapn><i class="bi bi-check-all"></i></sapn> 수주관리
       </div>
       <div className='table-div'>
         <table>

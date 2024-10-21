@@ -25,8 +25,8 @@ const SalesChart = () => {
       const month = orderDate.getMonth(); // 
 
       if (month >= 0 && month < 12) {
-        sales[month] += item.totalPrice || 0; // 해당 월의 매출에 합산
-        orders[month] += 1; // 해당 월의 주문량에 1 추가
+        sales[month] += item.totalPrice || 0; 
+        orders[month] += 1; 
       }
     });
 
@@ -69,6 +69,10 @@ const SalesChart = () => {
       markers :{ 
         shape : 'square'
       },
+      offsetY : 10,
+      itemMargin: {
+        horizontal: 15, // 가로 간격 조정
+      }
     },
     tooltip: {
       x: {
@@ -117,7 +121,7 @@ const SalesChart = () => {
           },
         },
       ],
-    },
+    }
   };
 
   return (

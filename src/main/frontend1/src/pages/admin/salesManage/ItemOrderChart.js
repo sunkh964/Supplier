@@ -39,22 +39,22 @@ const ItemOrderChart = () => {
   }, []);
 
   useEffect(() => {
-    // 시리즈 배열 생성
     const newSeries = getCus.map((cus) => {
-      const customerData = getCnt.filter(cnt => cnt.cus_num === cus.cusNum); // 고객별 주문량 필터링
-
+      const customerData = getCnt.filter(cnt => cnt.cusVO.cusNum == cus.cusNum); // 고객별 주문량 필터링
+  
       return {
-        name: cus.cusName, // 고객 이름
+        name: cus.cusName,
         data: getItem.map((item) => {
-          const itemData = customerData.find(data => data.item_num === item.itemNum);
-          return itemData ? itemData.order_cnt : 0; // 주문량이 없으면 0
+          const itemData = customerData.find(f => f.itemVO.itemNum == item.itemNum); // 아이템 번호 추출
+          return itemData ? itemData.orderCnt : 0; // 주문량이 없으면 0?
         })
       };
     });
-    
+  
     setSeries(newSeries);
   }, [getCus, getItem, getCnt]);
-
+  
+  
   const options = {
     chart: {
       type: 'bar',
@@ -88,6 +88,7 @@ const ItemOrderChart = () => {
       title: {
         text: undefined
       },
+      max : 250,
     },
     tooltip: {
       y: {
@@ -102,7 +103,10 @@ const ItemOrderChart = () => {
     legend: {
       position: 'top',
       horizontalAlign: 'left',
-      offsetX: 40
+      offsetX: 10,
+      itemMargin: {
+        horizontal: 15, // 가로 간격 조정
+      }
     }
   };
 

@@ -77,6 +77,9 @@ const SalesManage = () => {
 
   return (
     <div className='sales'>
+      <div className='sales-title'>
+        <sapn><i class="bi bi-check-all"></i></sapn> 매출관리
+      </div>
 
       <div className='sales-2'>
         <div className='s2'>

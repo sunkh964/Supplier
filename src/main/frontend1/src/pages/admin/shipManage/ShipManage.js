@@ -91,6 +91,9 @@ const ShipManage = () => {
 
   return (
     <div className='ship-container'>
+      <div className='sales-title'>
+        <sapn><i class="bi bi-check-all"></i></sapn> 출하관리
+      </div>
       <div className='top-div'>
         <div className='row'>
             {/* 정렬 라디오 버튼 */}
