@@ -11,39 +11,39 @@ const SalesChart = () => {
     axios.get("/orderItem/getSales")
       .then((res) => {
         setGetSales(res.data);
-        console.log("API Response:", res.data);
+        console.log("주문내역 :", res.data);
       })
       .catch((error) => { console.log(error) });
   }, []);
 
   useEffect(() => {
-    const sales = Array(12).fill(0); // 12개월 매출 초기화
-    const orders = Array(12).fill(0); // 12개월 매출 초기화
+    const sales = Array(12).fill(0); 
+    const orders = Array(12).fill(0); 
 
     getSales.forEach(item => {
       const orderDate = new Date(item.orderDate);
-      const month = orderDate.getMonth(); // 0~11로 반환, 1월은 0
+      const month = orderDate.getMonth(); // 
 
       if (month >= 0 && month < 12) {
-        sales[month] += item.totalPrice || 0; // 해당 월의 매출에 합산
-        orders[month] += 1; // 해당 월의 주문량에 1 추가
+        sales[month] += item.totalPrice || 0; 
+        orders[month] += 1; 
       }
     });
 
-    setMonthlySales(sales); // 월별 매출 상태 업데이트
-    setMonthlyOrders(orders); // 월별 주문량 상태 업데이트
+    setMonthlySales(sales); 
+    setMonthlyOrders(orders); 
   }, [getSales]);
 
 
   const series = [{
     name: '월별 매출액',
-    data: monthlySales.map((sale,i) => sale/10000) // 월별 매출 데이터 사용
+    data: monthlySales.map((sale,i) => sale/10000) // 월별 매출 데이터
   }, {
     name: '주문량',
-    data: monthlyOrders // 주문량 데이터는 고정값으로 설정
+    data: monthlyOrders // 주문량 데이터
   }];
 
-  // 최고점 최저점
+  // 최고점 최저점 구하기
   const maxSales = Math.max(...monthlySales) / 10000;
   const minSales = Math.min(...monthlySales) / 10000;
 
@@ -69,6 +69,10 @@ const SalesChart = () => {
       markers :{ 
         shape : 'square'
       },
+      offsetY : 10,
+      itemMargin: {
+        horizontal: 15, // 가로 간격 조정
+      }
     },
     tooltip: {
       x: {
@@ -117,7 +121,7 @@ const SalesChart = () => {
           },
         },
       ],
-    },
+    }
   };
 
   return (

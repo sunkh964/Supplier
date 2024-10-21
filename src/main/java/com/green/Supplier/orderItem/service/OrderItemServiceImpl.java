@@ -85,9 +85,16 @@ public class OrderItemServiceImpl implements OrderItemService{
         sqlSession.update("orderItemMapper.setDelisStart", orderDetailVO);
     }
 
-    // <!-- 매출 조회 -->
+//<!--===============================================================-->
+    /*매출 조회*/
     @Override
     public List<OrderItemVO> getSales() {
         return sqlSession.selectList("orderItemMapper.getSales");
+    }
+
+    /* 제품 당 주문량 조회 */
+    @Override
+    public List<OrderDetailVO> getOrderCnt() {
+        return sqlSession.selectList("orderItemMapper.getOrderCnt");
     }
 }

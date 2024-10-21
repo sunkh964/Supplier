@@ -142,22 +142,24 @@
         O.ORDER_NUM;
     </select>
     
-
+<!--===============================================================-->
     <!-- 매출 조회 -->
-<!--    <select id="getSales" resultMap="orderItem">-->
-<!--        SELECT *-->
-<!--        FROM order_item-->
-<!--    </select>-->
+    <select id="getSales" resultMap="orderItem">
+        SELECT *
+        FROM order_item
+    </select>
     
     <!-- 제품 당 주문량 조회-->
-    <select id="getOrderCountByCusNumForItems" resultMap="orderDetail">
-        SELECT OD.ITEM_NUM,
-               SUM(OD.ORDER_CNT) AS totalOrderCnt
-        FROM ORDER_DETAIL OD
-        JOIN ORDER_ITEM OI ON OD.ORDER_NUM = OI.ORDER_NUM
-        WHERE OI.CUS_NUM = #{cusNum}
-        GROUP BY OD.ITEM_NUM
+    <select id="getOrderCnt" resultMap="orderDetail">
+        SELECT OI.CUS_NUM,
+               OD.ITEM_NUM,
+               OD.ORDER_CNT
+        FROM ORDER_DETAIL OD, ORDER_ITEM OI
+        WHERE OD.ORDER_NUM = OI.ORDER_NUM
+        GROUP BY OI.CUS_NUM, OD.ITEM_NUM;
     </select>
+
+<!--===============================================================-->
     
     <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderDetailList" resultMap="orderDetail">
@@ -180,11 +182,11 @@
         </choose>
     </select>
 
-    <!-- 공급사 개별상품주문 목록 -->
-    <select id="getSales" resultMap="orderItem">
-        SELECT ORDER_DATE, TOTAL_PRICE
-        FROM order_item
-    </select>
+<!--    &lt;!&ndash; 공급사 개별상품주문 목록 &ndash;&gt;-->
+<!--    <select id="getSales" resultMap="orderItem">-->
+<!--        SELECT ORDER_DATE, TOTAL_PRICE-->
+<!--        FROM order_item-->
+<!--    </select>-->
 
     <!--주문 번호 목록 조회-->
     <select id="getOrderNumList" resultMap="orderItem">

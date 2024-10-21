@@ -1,8 +1,12 @@
-.main-div {
+.orderManage{
+  padding: 10px 30px 10px 15px
+}
+
+/* .main-div {
   font-size: 1.7rem;
   margin-top: 20px;
   margin-bottom: 40px;
-}
+} */
 
 /* --------------------------------------------테이블 */
 .main-div .table-div table { width: 100%; }
