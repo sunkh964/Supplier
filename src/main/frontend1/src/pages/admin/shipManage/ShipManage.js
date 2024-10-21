@@ -90,7 +90,7 @@ const ShipManage = () => {
     if (orderDetail.length != 0) {
       if (window.confirm('배송을 시작하시겠습니까?')) {
         axios.put(`/orderItem/setDelisStart`, orderDetail)
-        .then((res) => {setRefresh(prev => !prev); })
+        .then((res) => {setRefresh(prev => !prev); console.log(orderDetail);})
         .catch((error) => {alert(error)});
       } else { return; }
     }
@@ -118,12 +118,6 @@ const ShipManage = () => {
             <div className='radio-btn'>
               <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e);}} />
               <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
-              <input type='radio' id='order-num-radio' name='sort-radio' className='radio' value='sortOrderNumDown' checked={sortChecked === 'sortOrderNumDown'} onChange={handleSortChange} />
-              <label for='order-num-radio'>주문 번호 <i className="bi bi-caret-up-fill" /></label>
-            </div>
-            <div className='radio-btn'>
-              <input type='radio' id='addr-radio' name='sort-radio' className='radio' value='sortOrderNumUp' checked={sortChecked === 'sortOrderNumUp'} onChange={handleSortChange} />
-              <label for='addr-radio'>주문 번호 <i className="bi bi-caret-down-fill" /></label>
             </div>
           </div>
           <div className='search-div'>
@@ -137,14 +131,14 @@ const ShipManage = () => {
         </div>
         <div className='sort-div btn-div'>
           <input type='checkbox' id='after-deliver' className='after-deliver' checked={hideDelivered} onChange={handleCheckboxChange} />
-          <label for='after-deliver'>배송 완료 항목 제외</label>
+          <label for='after-deliver'>배송완료/주문취소 항목 제외</label>
         </div>
       </div>
 
       <div className='table-div'>
         <table>
           <colgroup>
-            <col width={"5%"} />
+            <col width={"6%"} />
             <col width={"10%"} />
             <col width={"15%"} />
             <col width={"8%"} />
@@ -191,13 +185,13 @@ const ShipManage = () => {
                   }
 
                 // '배송완료'라면 <tr> 제거
-                if (hideDelivered && order.deliverVO.deliStatus === '배송완료') {
+                if ((hideDelivered && order.deliverVO.deliStatus === '배송완료') || (hideDelivered && order.deliverVO.deliStatus === '주문취소')) {
                   return null;
                 }
 
                 return (
                   <tr key={i}>
-                    <td onClick={() => {navigate(`/admin/orderDetail/${order.orderNum}`);}}>{order.orderNum}</td>
+                    <td className='order-go' onClick={() => {navigate(`/admin/orderDetail/${order.orderNum}`);}}>{order.orderNum}</td>
                     <td>{order.cusVO.cusName}</td>
                     <td className='long-text'>{order.orderDate}</td>
                     <td>{order.totalPrice.toLocaleString()}</td>

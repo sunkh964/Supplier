@@ -193,6 +193,13 @@
         ORDER BY ORDER_NUM ${sortValue};
     </select>
 
+    <!-- 주문 당 상품 개수 파악 -->
+    <select id="getItemCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM order_detail
+        WHERE ORDER_NUM = #{orderNum};
+    </select>
+
     <!-- 주문 취소 = 주문 취소로 업데이트 -->
     <update id="cancelOrder">
         UPDATE order_item O
@@ -202,9 +209,8 @@
     </update>
 
     <!-- 전체 주문취소인지 파악 -->
-    <select id="isAllCanceled" resultType="int">
+    <select id="getCancelCnt" resultType="int">
         SELECT COUNT(OD.DELI_NUM)
-<!--        , O.ORDER_NUM, OD.DETAIL_NUM, D.DELI_STATUS-->
         FROM deliver D, order_detail OD, order_item O
         WHERE OD.DELI_NUM = 5  <!-- 주문취소 -->
         AND O.ORDER_NUM = #{orderNum}
@@ -229,12 +235,19 @@
     <!-- 개별 주문 배송 시작 -->
     <update id="setDeliStart">
         UPDATE order_detail OD, item I
-<!--        SET OD.DELI_NUM = 3, OD.DEPART_TIME = CURRENT_TIMESTAMP, I.STOCK = I.STOCK - #{orderCnt}-->
         SET OD.DELI_NUM = 3, OD.DEPART_TIME = CURRENT_TIMESTAMP, I.STOCK = I.STOCK - OD.ORDER_CNT
         WHERE DETAIL_NUM = #{detailNum}
             AND I.ITEM_NUM = OD.ITEM_NUM
             AND I.ITEM_NUM = #{itemNum};
     </update>
+
+    <!-- 전체 배송중인지 파악 -->
+    <select id="getDeliStartCnt" resultType="int">
+        SELECT COUNT(DELI_NUM)
+        FROM order_detail
+        WHERE DELI_NUM = 3
+        AND order_num = #{orderNum};
+    </select>
 
     <!-- 주문 배송 시작 -->
     <update id="setDelisStart">

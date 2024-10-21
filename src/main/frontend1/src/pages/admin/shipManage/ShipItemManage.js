@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "./ShipManage.css"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const ShipItemManage = () => {
 
+   const navigate = useNavigate();
+
    // 주문품목 저장
    const [orderDetailList, setOrderDetailList] = useState([]);
-
+   console.log(orderDetailList);
    // 체크박스 상태 관리
    const [hideDelivered, setHideDelivered] = useState(false);
 
@@ -31,7 +34,7 @@ const ShipItemManage = () => {
    // 배송완료 제외 체크박스 onChange 함수
    const handleCheckboxChange = () => {
       setHideDelivered(prev => !prev);
-   };
+   }
 
    // 정렬 라디오 버튼 onChange 함수
    const handleSortChange = (e) => {
@@ -64,7 +67,8 @@ const ShipItemManage = () => {
          ...orderDetail,
          orderCnt: each.orderCnt,
          itemNum: each.itemNum,
-         detailNum: each.detailNum
+         detailNum: each.detailNum,
+         orderNum: each.orderNum
       });
    }
 
@@ -73,7 +77,7 @@ const ShipItemManage = () => {
       if (orderDetail.detailNum != 0) {
          if (window.confirm('배송을 시작하시겠습니까?')) {
             axios.put(`/orderItem/setDeliStart`, orderDetail)
-            .then((res) => {setRefresh(prev => !prev); })
+            .then((res) => {setRefresh(prev => !prev); console.log(orderDetail)})
             .catch((error) => {alert(error)});
          } else { return; }
       }
@@ -97,10 +101,10 @@ const ShipItemManage = () => {
 
    // 개별 상품 주문 취소 put
    useEffect(() => {
-      if (cancelOrder.orderNum != 0) {
+      if (cancelOrder.detailNum != 0) {
          if (window.confirm('상품의 주문을 취소하시겠습니까?')) {
             axios.put(`/orderItem/cancelDetail`, cancelOrder)
-            .then((res) => { setRefresh(prev => !prev); })
+            .then((res) => { setRefresh(prev => !prev);})
             .catch((error) => {alert(error)});
          } else { return; }
       }
@@ -119,9 +123,6 @@ const ShipItemManage = () => {
    // 리스트 그리기
    const drawDetailList = orderDetailList.map((orderItem, i) => {
       const details = orderItem.orderDetailList;
-
-      // '배송완료'가 있는지 여부를 확인
-      const hasDelivered = details.some(each => each.deliverVO.deliStatus === '배송완료');
 
       return (
          details.map((each, j) => {
@@ -166,15 +167,10 @@ const ShipItemManage = () => {
                   break;
          }
 
-            // '배송완료'라면 <tr> 제거
-            if (hideDelivered && each.deliverVO.deliStatus === '배송완료') {
-               return null;
-            }
-
             return (
                <tr key={each.detailNum}>
-                  {j === 0 ? (<td rowSpan={hasDelivered && hideDelivered ? 0 : details.length}>{each.orderNum}</td>) : null}
-                  <td>{each.detailNum}</td>
+                  {j === 0 ? (<td rowSpan={ details.length} className='order-go' onClick={() => {navigate(`/admin/orderDetail/${each.orderNum}`);}}>{each.orderNum}</td>) : null}
+                  <td >{each.detailNum}</td>
                   <td>{each.typeVO.typeName}</td>
                   <td><img src={`http://localhost:8081/images/${each.itemVO.itemImg}`} className='item-img' /></td>
                   <td>{each.itemVO.itemName}</td>
@@ -182,7 +178,7 @@ const ShipItemManage = () => {
                   <td className={`stock-${stockColor}`}>{each.orderCnt}</td>
                   <td>{each.itemVO.price.toLocaleString()}</td>
                   <td>{each.detailPrice.toLocaleString()}</td>
-                  {j === 0 ? (<td rowSpan={hasDelivered && hideDelivered ? 0 : details.length}>{orderItem.orderDate}</td>) : null}
+                  {j === 0 ? (<td rowSpan={details.length}>{orderItem.orderDate}</td>) : null}
                   <td>{each.departTime ? each.departTime : '-'}</td>
                   <td>{each.arriveTime ? each.arriveTime : '-'}</td>
                   <td className={`deli-status deli-${deliColor}`}>{each.deliverVO.deliStatus}</td>
@@ -208,13 +204,6 @@ const ShipItemManage = () => {
                <div className='radio-btn'>
                   <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e);}} />
                   <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
-
-                  <input type='radio' id='order-num-radio' name='sort-radio' className='radio' value='sortOrderNumDown' checked={sortChecked === 'sortOrderNumDown'} onChange={handleSortChange} />
-                  <label for='order-num-radio'>주문 번호 <i className="bi bi-caret-up-fill" /></label>
-               </div>
-               <div className='radio-btn'>
-                  <input type='radio' id='addr-radio' name='sort-radio' className='radio' value='sortOrderNumUp' checked={sortChecked === 'sortOrderNumUp'} onChange={handleSortChange} />
-                  <label for='addr-radio'>주문 번호 <i className="bi bi-caret-down-fill" /></label>
                </div>
             </div>
             <div className='search-div'>
@@ -226,20 +215,20 @@ const ShipItemManage = () => {
             </div>
             </div>
             <div className='sort-div btn-div'>
-            <input type='checkbox' id='after-deliver' className='after-deliver' checked={hideDelivered} onChange={handleCheckboxChange} />
-            <label for='after-deliver'>배송 완료 항목 제외</label>
+            <input type='checkbox' id='after-deliver' className='after-deliver' checked={hideDelivered} onChange={handleCheckboxChange}/>
+            <label for='after-deliver'>배송완료/주문취소 항목 제외</label>
             </div>
          </div>
 
          <div className='table-div'>
             <table>
                <colgroup>
-                  <col width={"5%"} />
-                  <col width={"5%"} />
-                  <col width={"6%"} />
-                  <col width={"4%"} />
-                  <col width={"*%"} />
                   <col width={"3%"} />
+                  <col width={"3%"} />
+                  <col width={"6%"} />
+                  <col width={"5%"} />
+                  <col width={"*%"} />
+                  <col width={"4%"} />
                   <col width={"6%"} />
                   <col width={"4%"} />
                   <col width={"4%"} />

@@ -71,12 +71,22 @@ public class OrderItemController {
     @PutMapping("/cancelDetail")
     void cancelDetail(@RequestBody OrderDetailVO detailVO) {
         orderItemService.cancelDetail(detailVO);
+        int cancelCnt = orderItemService.getCancelCnt(detailVO.getOrderNum());
+        int itemCnt = orderItemService.getItemCnt(detailVO.getOrderNum());
+        if (cancelCnt == itemCnt) {
+            orderItemService.setAllCanceled(detailVO.getOrderNum());
+        }
     }
 
 //    개별 상품 배송 시작
     @PutMapping("/setDeliStart")
     void setDeliStart(@RequestBody OrderDetailVO orderDetailVO) {
         orderItemService.setDeliStart(orderDetailVO);
+        int orderStartCnt = orderItemService.getDeliStartCnt(orderDetailVO.getOrderNum());
+        int itemCnt = orderItemService.getItemCnt(orderDetailVO.getOrderNum());
+        if (orderStartCnt == itemCnt) {
+            orderItemService.setDelisStart(orderDetailVO);
+        }
     }
 
 //    상품 배송 시작

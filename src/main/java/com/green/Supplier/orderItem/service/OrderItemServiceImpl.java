@@ -46,18 +46,23 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
+    public int getItemCnt(int orderNum) {
+        return sqlSession.selectOne("orderItemMapper.getItemCnt", orderNum);
+    }
+
+    @Override
     public void cancelOrder(int orderNum) {
         sqlSession.delete("orderItemMapper.cancelOrder", orderNum);
     }
 
     @Override
     public void cancelDetail(OrderDetailVO detailVO) {
-        sqlSession.delete("orderItemMapper.cancelDetail", detailVO.getItemNum());
+        sqlSession.delete("orderItemMapper.cancelDetail", detailVO.getDetailNum());
     }
 
     @Override
-    public int isAllCanceled(int orderNum) {
-        return sqlSession.selectOne("orderItemMapper.isAllCanceled", orderNum);
+    public int getCancelCnt(int orderNum) {
+        return sqlSession.selectOne("orderItemMapper.getCancelCnt", orderNum);
     }
 
     @Override
@@ -68,6 +73,11 @@ public class OrderItemServiceImpl implements OrderItemService{
     @Override
     public void setDeliStart(OrderDetailVO orderDetailVO) {
         sqlSession.update("orderItemMapper.setDeliStart", orderDetailVO);
+    }
+
+    @Override
+    public int getDeliStartCnt(int orderNum) {
+        return sqlSession.selectOne("orderItemMapper.getDeliStartCnt", orderNum);
     }
 
     @Override

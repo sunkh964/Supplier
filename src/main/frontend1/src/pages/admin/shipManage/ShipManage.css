@@ -1,8 +1,14 @@
 .ship-container {
    width: 100%;
+   height: 100%;
    padding: 20px;
    box-sizing: border-box;
    flex-direction: column;
+   overflow: scroll;
+}
+
+::-webkit-scrollbar {
+   display: none;
 }
 
 .ship-container td, .ship-container thead {
@@ -59,13 +65,13 @@
 }
 
 .ship-container .cancel-order {
-   background-color: #FFDACA !important;
-   color: #B43127 !important;
+   background-color: #FFDACA;
+   color: #B43127;
 }
 
-.ship-container .cancel-order:hover {
-   background-color: #ffbc9f !important;
-}
+.ship-container button:hover { background-color: #A1BDED; }
+.ship-container .cancel-order:hover { background-color: #ffc0a6; }
+
 
 .ship-container .radio-btn input[type=radio] { display: none; }
 
@@ -112,10 +118,6 @@
    cursor: default;
 }
 
-.ship-container button:hover {
-   background-color: #A1BDED;
-}
-
 /* -- 체크박스 체크 시 */  
 #after-deliver:checked + label:before{
    background-color:#F38E76;
@@ -153,3 +155,5 @@
 .deli-blue { color:#A1BDED; }
 .deli-grey { color: #bbb; }
 .bold { font-weight: 600; }
+
+.order-go:hover {text-decoration: underline; cursor: pointer;}
