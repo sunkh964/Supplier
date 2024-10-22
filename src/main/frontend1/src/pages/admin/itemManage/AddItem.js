@@ -1,8 +1,13 @@
 import React from 'react'
+import "./AddItem.css"
 
 const AddItem = () => {
   return (
-    <div>AddItem</div>
+    <div className='addItem'>
+      <div className='sales-title'>
+        <i class="bi bi-check-all"></i> 제품관리 <span>- 재고 추가</span>
+      </div>
+    </div>
   )
 }
 
