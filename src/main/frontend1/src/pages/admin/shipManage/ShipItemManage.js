@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./ShipManage.css"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,8 @@ const ShipItemManage = () => {
    const [searchInfo, setSearchInfo] = useState({
       searchType: 'ITEM_NAME',
       searchValue: '',
-      sortValue: 'DESC'
+      sortValue: 'DESC',
+      noDeliver : false   //배송완료 및 주문취소 제외 여부
    });
 
    // 검색 searchInfo onChange 함수
@@ -34,6 +35,10 @@ const ShipItemManage = () => {
    // 배송완료 제외 체크박스 onChange 함수
    const handleCheckboxChange = () => {
       setHideDelivered(prev => !prev);
+      setSearchInfo({
+         ...searchInfo,
+         noDeliver : !searchInfo.noDeliver
+      });
    }
 
    // 정렬 라디오 버튼 onChange 함수
@@ -53,7 +58,7 @@ const ShipItemManage = () => {
          } catch (error) { alert(error); }
       };
       fetchOrderDetailList();
-   }, [refresh, searchInfo.sortValue]);
+   }, [refresh, searchInfo.sortValue, searchInfo.noDeliver]);
 
    // 배송 시작 후 변경 값 저장
    const [orderDetail, setOrderDetail] = useState({

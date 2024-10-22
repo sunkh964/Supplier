@@ -9,4 +9,5 @@ public class SearchVO {
     private int orderNum;
     private String sortType;
     private String sortValue;
+    private boolean noDeliver;
 }
