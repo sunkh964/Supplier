@@ -37,6 +37,32 @@
     </resultMap>
 
     <!-- 공급사 주문서 목록 -->
+    <select id="getOrderDetailList" resultMap="orderDetail">
+        SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, I.ITEM_NAME, I.ITEM_NUM, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.PRICE, I.STOCK, OD.ORDER_CNT
+        , O.ORDER_NUM, O.ORDER_DATE, OD.DEPART_TIME, OD.ARRIVE_TIME, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, D.DELI_NUM, D.DELI_STATUS, OD.ORDER_NUM
+        FROM cus C, item I, deliver D, order_item O, ORDER_DETAIL OD, item_type T
+        WHERE OD.ORDER_NUM = O.ORDER_NUM
+        AND I.TYPE_NUM = T.TYPE_NUM
+        AND O.CUS_NUM = C.CUS_NUM
+        AND I.ITEM_NUM = OD.ITEM_NUM
+        AND OD.DELI_NUM = D.DELI_NUM
+        AND OD.ORDER_NUM = #{orderNum}
+        <if test='searchValue != null and !searchValue.equals("")'>
+            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
+        </if>
+        <if test='noDeliver'>
+            AND OD.DELI_NUM IN (1,2,3)
+        </if>
+
+        <!--        AND OD.DELI_NUM IN (1,2,3)-->
+        ORDER BY OD.ORDER_NUM
+        <choose>
+            <when test='sortValue == null or sortValue.equals("")'> DESC, OD.DETAIL_NUM DESC </when>
+            <otherwise> ${sortValue}, OD.DETAIL_NUM ${sortValue} </otherwise>
+        </choose>
+    </select>
+
+    <!-- 주문 상세 내역서 조회 -->
     <select id="getOrderList" resultMap="orderItem">
         SELECT O.ORDER_NUM, C.CUS_NUM, C.CUS_NAME, O.ORDER_DATE, O.TOTAL_PRICE, I.ITEM_NUM, C.CUS_ADDR, C.CUS_TEL, O.DELI_NUM, D.DELI_STATUS, OD.DETAIL_NUM, OD.ORDER_CNT, OD.DETAIL_PRICE
         FROM cus C, item I, deliver D, order_item O, ORDER_DETAIL OD
@@ -97,8 +123,15 @@
         ORDER BY
         O.ORDER_NUM;
     </select>
+
+
+    <!-- 매출 조회 -->
+<!--    <select id="getSales" resultMap="orderItem">-->
+<!--        SELECT *-->
+<!--        FROM order_item-->
+<!--    </select>-->
     
-    <!-- 주문 상세 내역서 조회 -->
+    <!-- 제품 당 주문량 조회-->
     <select id="getDetail" resultMap="orderDetail">
         SELECT
         O.ORDER_NUM,
@@ -141,15 +174,8 @@
         ORDER BY
         O.ORDER_NUM;
     </select>
-    
 
-    <!-- 매출 조회 -->
-<!--    <select id="getSales" resultMap="orderItem">-->
-<!--        SELECT *-->
-<!--        FROM order_item-->
-<!--    </select>-->
-    
-    <!-- 제품 당 주문량 조회-->
+    <!-- 공급사 개별상품주문 목록 -->
     <select id="getOrderCountByCusNumForItems" resultMap="orderDetail">
         SELECT OD.ITEM_NUM,
                SUM(OD.ORDER_CNT) AS totalOrderCnt
@@ -157,27 +183,6 @@
         JOIN ORDER_ITEM OI ON OD.ORDER_NUM = OI.ORDER_NUM
         WHERE OI.CUS_NUM = #{cusNum}
         GROUP BY OD.ITEM_NUM
-    </select>
-    
-    <!-- 공급사 개별상품주문 목록 -->
-    <select id="getOrderDetailList" resultMap="orderDetail">
-        SELECT OD.DETAIL_NUM, T.TYPE_NUM, T.TYPE_NAME, I.ITEM_IMG, I.ITEM_NAME, I.ITEM_NUM, C.CUS_NUM, C.CUS_NAME, OD.DETAIL_PRICE, I.PRICE, I.STOCK, OD.ORDER_CNT
-        , O.ORDER_NUM, O.ORDER_DATE, OD.DEPART_TIME, OD.ARRIVE_TIME, O.TOTAL_PRICE, C.CUS_ADDR, C.CUS_TEL, D.DELI_NUM, D.DELI_STATUS, OD.ORDER_NUM
-        FROM cus C, item I, deliver D, order_item O, ORDER_DETAIL OD, item_type T
-        WHERE OD.ORDER_NUM = O.ORDER_NUM
-        AND I.TYPE_NUM = T.TYPE_NUM
-        AND O.CUS_NUM = C.CUS_NUM
-        AND I.ITEM_NUM = OD.ITEM_NUM
-        AND OD.DELI_NUM = D.DELI_NUM
-        AND OD.ORDER_NUM = #{orderNum}
-        <if test='searchValue != null and !searchValue.equals("")'>
-            AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
-        </if>
-        ORDER BY OD.ORDER_NUM
-        <choose>
-            <when test='sortValue == null or sortValue.equals("")'> DESC, OD.DETAIL_NUM DESC </when>
-            <otherwise> ${sortValue}, OD.DETAIL_NUM ${sortValue} </otherwise>
-        </choose>
     </select>
 
     <!-- 공급사 개별상품주문 목록 -->

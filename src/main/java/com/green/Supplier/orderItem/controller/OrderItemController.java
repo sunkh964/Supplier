@@ -42,7 +42,8 @@ public class OrderItemController {
     public List<OrderItemVO> getSales(){
         return orderItemService.getSales();
     }
-//    공급사 개별상품 목록
+
+    //공급사 개별상품 목록
     @PostMapping("/getOrderDetailList")
     public List<OrderItemVO> getOrderDetailList(@RequestBody(required = false) SearchVO searchVO) {
         System.out.println(searchVO);
