@@ -16,4 +16,16 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemVO> getItem() {
         return sqlSession.selectList("itemMapper.getItem");
     }
+
+    //    상품 목록조회
+    @Override
+    public List<ItemVO> selectCartItems() {
+        return sqlSession.selectList("itemMapper.selectCartItems");
+    }
+
+//    장바구니 등록
+    @Override
+    public void insertCart(ItemVO itemVO) {
+        ItemVO vo = sqlSession.selectOne("itemMapper.insertCart", itemVO);
+    }
 }

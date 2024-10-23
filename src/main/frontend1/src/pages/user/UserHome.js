@@ -1,9 +1,27 @@
 import React from 'react'
 import './UserHome.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const UserHome = () => {
   const navigaite=useNavigate();
+
+    //장바구니 담기 버튼 클릭 시 실행하는 함수
+  function insertCart(){
+    axios.post('/item/insert')
+    .then((res) => {
+      const result = window.confirm('장바구니에 상품을 담았습니다.\n계속 쇼핑하겠습니까?');
+
+      //취소를 선택하면 장바구니 목록 페이지로 이동
+      navigaite('cart')
+      if(!result){
+
+      }
+
+    })
+    .catch((error) => {console.log(error)});
+  }
+
   return (
     <div>
               <div className='main'>

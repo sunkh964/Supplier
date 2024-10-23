@@ -25,4 +25,36 @@
     <select id="getItem" resultMap="item">
         SELECT * FROM ITEM;
     </select>
+
+    <select id="selectCartItems" resultMap="item">
+        SELECT
+        I.ITEM_NUM,
+        I.ITEM_NAME,
+        I.PRICE,
+        I.STOCK,
+        I.ITEM_CODE,
+        I.ITEM_DETAIL,
+        I.ITEM_IMG,
+        I.TYPE_NUM,
+        I.SUP_NUM,
+        FROM
+        SUPM C
+        JOIN
+        ITEM I ON C.ITEM_NUM = I.ITEM_NUM  -- 아이템과 장바구니 연결
+        WHERE
+        C.SUPM_ID = #{supmId}  -- 특정 사용자의 장바구니 조회
+    </select>
+
+    <insert id="insertCart">
+        INSERT INTO ITEM (
+        ITEM_NUM
+        , SUPM_ID
+        ) VALUES (
+        #{itemNum}
+        ,#{supmId}
+        );
+    </insert>
+
+
+
 </mapper>
