@@ -88,7 +88,7 @@ const ItemOrderChart = () => {
       title: {
         text: undefined
       },
-      max : 250,
+      max : 200,
     },
     tooltip: {
       y: {

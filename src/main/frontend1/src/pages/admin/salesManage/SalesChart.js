@@ -45,7 +45,9 @@ const SalesChart = () => {
 
   // 최고점 최저점 구하기
   const maxSales = Math.max(...monthlySales) / 10000;
-  const minSales = Math.min(...monthlySales) / 10000;
+
+  const filterSales = monthlySales.filter(sale => sale > 0);
+  const minSales = filterSales.length >0 ? Math.min(...filterSales) /10000 : 0; // 0일 경우 기본값 0 
 
   const options = {
     chart: {
