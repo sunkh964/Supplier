@@ -1,10 +1,13 @@
+.orderDetail{
+  padding: 10px 30px 10px 15px;
+}
+
 .table-div1 {
   width: 100%;
-  border-top: px solid #E1E7FF;
 }
 
 .table-div1 table { 
-  width: 100%;
+  width: 95%;
 }
 
 .tabled td {
@@ -30,13 +33,30 @@
   height: 100%;
 }
 
-
 .n >tr, .n td{
   background-color: white;
   border-top: none;
   border-bottom: none ;
 }
 
-.n thead {
-  background-color: red !important;
+.tabled > tbody > tr:nth-child(7) >td {
+  padding: 0px 5px;
+}
+
+.n thead > tr > td{
+  border-bottom: 2px solid #eff1f7;
+  color: #97adc9;
+
+}
+
+.n tr > td {
+  padding: 10px;
+}
+
+.n tr > td:last-child {
+  border-right: none;
+}
+
+.tabled > tbody > tr:last-child {
+  border-bottom: 2px solid #f4f6ff;
 }

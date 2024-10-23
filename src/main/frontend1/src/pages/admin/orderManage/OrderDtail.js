@@ -34,9 +34,11 @@ const OrderDtail = () => {
 
 
   return (
-    <div>
+    <div className='orderDetail'>
+      <div className='sales-title'>
+        <sapn><i class="bi bi-check-all"></i></sapn> 주문 상세내역
+      </div>
       <div className='main-div1'>
-      주문 상세 내역
       </div>
       <div className='table-div1'>
         <table className='tabled'>

@@ -10,9 +10,9 @@ const AdminLayout = () => {
   const [adminMenu, setAdminMenu] = useState([
     {
       title: '수주관리',
-      path: '/admin/orderManage',
+      path: '/admin',
       subMenu: [
-        { title: '주문 목록', path: '/admin/orderManage' },
+        { title: '주문 목록', path: '/admin' },
         { title: '고객 목록', path: '/admin/cusList' },
       ]
     },

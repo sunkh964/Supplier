@@ -40,13 +40,13 @@ const OrderManage = () => {
           </thead>
           <tbody>
               {
-                orderList.reverse().map((order, i)=>{
+                orderList.map((order, i)=>{
                   return(
                     <tr className='table-div' key={i}>
                       <td>{order.orderNum}</td>
                       <td>{order.cusVO.cusName}</td>
                       <td>{order.orderDate}</td>
-                      <td>{order.totalPrice}</td>
+                      <td>{order.totalPrice.toLocaleString()}</td>
                       <td>{order.cusVO.cusTel}</td>
                       <td>{order.deliverVO.deliStatus}</td>
                       <td><div class="btn-container" onClick={()=>{navigaite(`/admin/orderDetail/${order.orderNum}`)}}>

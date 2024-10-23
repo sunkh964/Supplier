@@ -121,7 +121,7 @@
             AND ${searchType} LIKE CONCAT('%', #{searchValue}, '%')
         </if>
         ORDER BY
-        O.ORDER_NUM;
+        O.ORDER_NUM ;
     </select>
 
 

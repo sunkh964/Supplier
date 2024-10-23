@@ -75,8 +75,7 @@ useEffect(() => {
   
           {/* 관리자 페이지 */}
           <Route path='/admin' element={<AdminLayout/>}>
-            <Route path='' element={<AdminHome />} />
-            <Route path='orderManage' element={<OrderManage />} />
+            <Route path='' element={<OrderManage />} />
             <Route path='cusList' element={<CusList />} />
             <Route path='shipManage' element={<ShipManage />} />
             <Route path='shipItemManage' element={<ShipItemManage />} />

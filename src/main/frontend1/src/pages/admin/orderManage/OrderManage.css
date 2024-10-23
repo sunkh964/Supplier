@@ -1,5 +1,7 @@
 .orderManage{
-  padding: 10px 30px 10px 15px
+  padding: 10px 30px 10px 15px;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 /* .main-div {
@@ -30,6 +32,10 @@
 
 .main-div .table-div tbody tr {
   border-bottom: 2px solid #E8E9EE;
+}
+
+.main-div .table-div tbody{
+  overflow: scroll;
 }
 /* --------------------------------------테이블 */
 
