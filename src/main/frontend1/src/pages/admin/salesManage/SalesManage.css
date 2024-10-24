@@ -1,7 +1,17 @@
 .sales{
-  padding: 10px 30px 10px 15px;
+  padding: 0px 20px 0px 15px;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+.sales-fix{
+  background-color: white;
+  z-index: 1;
+  position: sticky;
+  top: 0;
+}
+.s{
+  background-color: white;
+  height: 10px;
 }
 .sales-title{
   border-bottom: 1px solid #A1BDED;
@@ -146,7 +156,7 @@
 
 /* ==================== sales-4 ===================== */
 .sales-4{
-  margin-bottom: 5px;
+  margin-bottom: 3px;
 }
 .sales-4 > div:first-child{
   color:rgb(41, 98, 148);

@@ -77,30 +77,33 @@ const SalesManage = () => {
 
   return (
     <div className='sales'>
-      <div className='sales-title'>
-        <sapn><i class="bi bi-check-all"></i></sapn> 매출관리
-      </div>
-
-      <div className='sales-2'>
-        <div className='s2'>
-          <div>매출액<span className='s2-title'>당월({CurrentMName()})</span></div>
-          <div>
-            <div className='s2-icon'><i className="bi bi-cash-coin"></i></div>
-            <div className='s2-num'>{(totalSales / 10000).toLocaleString()} 만원</div>
-          </div>
+      <div className='sales-fix'>
+        <div className='s'></div>
+        <div className='sales-title'>
+          <sapn><i class="bi bi-check-all"></i></sapn> 매출관리
         </div>
-        <div className='s2'>
-          <div>주문량<span className='s2-title'>당월({CurrentMName()})</span></div>
-          <div>
-            <div className='s2-icon'><i className="bi bi-receipt-cutoff"></i></div>
-            <div className='s2-num'>{orderCount} 건</div>
+  
+        <div className='sales-2'>
+          <div className='s2'>
+            <div>매출액<span className='s2-title'>당월({CurrentMName()})</span></div>
+            <div>
+              <div className='s2-icon'><i className="bi bi-cash-coin"></i></div>
+              <div className='s2-num'>{(totalSales / 10000).toLocaleString()} 만원</div>
+            </div>
           </div>
-        </div>
-        <div className='s2'>
-          <div>고객<span className='s2-title'>병원사</span></div>
-          <div>
-            <div className='s2-icon'><i className="bi bi-people-fill"></i></div>
-            <div className='s2-num'>{getCus.length}</div>
+          <div className='s2'>
+            <div>주문량<span className='s2-title'>당월({CurrentMName()})</span></div>
+            <div>
+              <div className='s2-icon'><i className="bi bi-receipt-cutoff"></i></div>
+              <div className='s2-num'>{orderCount} 건</div>
+            </div>
+          </div>
+          <div className='s2'>
+            <div>고객<span className='s2-title'>병원사</span></div>
+            <div>
+              <div className='s2-icon'><i className="bi bi-people-fill"></i></div>
+              <div className='s2-num'>{getCus.length}</div>
+            </div>
           </div>
         </div>
       </div>
