@@ -108,7 +108,7 @@ const ShipManage = () => {
   return (
     <div className='ship-container'>
       <div className='sales-title'>
-        <sapn><i class="bi bi-check-all"></i></sapn> 출하관리
+        <sapn><i class="bi bi-check-all"></i></sapn> 출하관리 <span>- 주문서 관리</span>
       </div>
       <div className='top-div'>
         <div className='row'>

@@ -198,6 +198,9 @@ const ShipItemManage = () => {
 
    return (
       <div className='ship-container'>
+      <div className='sales-title'>
+        <sapn><i class="bi bi-check-all"></i></sapn> 출하관리 <span>- 개별 주문 관리</span>
+      </div>
          <div className='top-div'>
             <div className='row'>
                {/* 정렬 라디오 버튼 */}
@@ -214,6 +217,7 @@ const ShipItemManage = () => {
             <div className='search-div'>
                <select name='searchType'>
                   <option value={"ITEM_NAME"}>상품명</option>
+                  <option value={"ORDER_DATE"}>주문일자</option>
                </select>
                <input type='text' name='searchValue' onChange={(e) => {searchInfoChange(e)}}></input>
                <button type='button' onClick={() => {searchBtn()}}>검색</button>
