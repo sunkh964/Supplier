@@ -253,7 +253,6 @@
     <!-- 전체 주문취소인지 파악 -->
     <select id="getCancelCnt" resultType="int">
         SELECT COUNT(OD.DELI_NUM)
-        SELECT COUNT(OD.DELI_NUM)
         FROM deliver D, order_detail OD, order_item O
         WHERE OD.DELI_NUM = 5  <!-- 주문취소 -->
         AND O.ORDER_NUM = #{orderNum}
