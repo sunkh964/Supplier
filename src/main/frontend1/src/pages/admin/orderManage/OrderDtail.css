@@ -1,5 +1,5 @@
 .orderDetail{
-  padding: 10px 30px 10px 15px;
+  padding: 10px 30px 10px 25px;
 }
 
 .table-div1 {
@@ -42,15 +42,19 @@
 .tabled > tbody > tr:nth-child(7) >td {
   padding: 0px 5px;
 }
+.n{
+  width: 100%;
+}
 
 .n thead > tr > td{
   border-bottom: 2px solid #eff1f7;
   color: #97adc9;
-
+  font-size: 0.9rem;
+  padding: 5px 0px 7px 0px;
 }
 
-.n tr > td {
-  padding: 10px;
+.n tbody > tr > td {
+  padding: 10px 0px 5px 0px;
 }
 
 .n tr > td:last-child {
