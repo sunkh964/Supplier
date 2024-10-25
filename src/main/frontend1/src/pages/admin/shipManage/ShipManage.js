@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./ShipManage.css"
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../../common/Modal';
 
 const ShipManage = () => {
 
@@ -44,12 +45,9 @@ const ShipManage = () => {
 
   // 검색하기 버튼 함수
   const searchBtn = () => {
-    console.log("검색 실행");
     axios.post(`/orderItem/getOrderList`, searchInfo)
     .then((res) => {
-      console.log(searchInfo);
       setOrderList(res.data);
-      console.log("검색 성공");
     })
     .catch((error) => {alert(error);});
   }
@@ -75,7 +73,6 @@ const ShipManage = () => {
 
   // 배송 시작 버튼 함수
   const delisStart = (orderDetailList) => {
-    console.log(orderDetailList);
     const addDetail = orderDetailList.map((detail, i) => (
       {
         detailNum: detail.detailNum,
@@ -90,7 +87,7 @@ const ShipManage = () => {
     if (orderDetail.length != 0) {
       if (window.confirm('배송을 시작하시겠습니까?')) {
         axios.put(`/orderItem/setDelisStart`, orderDetail)
-        .then((res) => {setRefresh(prev => !prev); console.log(orderDetail);})
+        .then((res) => {setRefresh(prev => !prev);})
         .catch((error) => {alert(error)});
       } else { return; }
     }
@@ -104,6 +101,117 @@ const ShipManage = () => {
         .catch((error) => {alert(error)});
     } else { return; }
   }
+
+  // -------------------- 모달 ----------------------
+  const [updateModal, setUpdateModal] = useState(false);
+  const [modifyActive, setModifyActive] = useState(false);
+  const [modalContent, setModalContent] = useState({});
+
+      // 버튼 클릭 시 모달창 활성화
+  function ResSelUpdate(orderNum) {
+    setModifyActive(true);
+    setModalContent(orderList[orderNum-1]);
+    setUpdateModal(true); // 모달 열기
+  }
+
+  // 날짜 포맷팅 함수
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`; // yyyyMMdd 형식으로 반환
+  };
+
+  // 임의의 10자리 숫자 생성 함수
+  const generateRandomNumber = () => {
+    return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+  };
+
+  // 모달 내용
+  function drawModalContent() {
+    const orderDateFormatted = formatDate(orderList.orderDate); // 날짜 포맷팅
+    const randomNumber = generateRandomNumber(); // 임의의 숫자 생성
+    const orderNumber = `${orderDateFormatted}-${randomNumber}`; // 최종 주문번호
+
+    return (
+      <div className='orderDetail'>
+        <div className='sales-title'>
+          <i className="bi bi-check-all"></i> 주문서
+        </div>
+        <div className='table-div1'>
+          <div>주문번호 : <span>{orderNumber}</span></div>
+          <table className='tabled'>
+            
+            
+            {Object.keys(modalContent).length > 0 && (
+              <tbody>
+                <tr>
+                  <td>상호</td>
+                  <td colSpan={5}>{modalContent.cusVO.cusName}</td>
+                </tr>
+                <tr>
+                  <td>배송지</td>
+                  <td colSpan={5}>{modalContent.cusVO.cusAddr}</td>
+                </tr>
+                <tr>
+                  <td>연락처</td>
+                  <td colSpan={5}>{modalContent.cusVO.cusTel}</td>
+                </tr>
+                <tr>
+                  <td>주문 날짜</td>
+                  <td colSpan={5}>{modalContent.orderDate}</td>
+                </tr>
+                <tr>
+                  <td>배송 현황</td>
+                  <td colSpan={5}>{modalContent.deliverVO.deliStatus}</td>
+                </tr>
+                <tr>
+                  <td>상품</td>
+                  <td>
+                    <table className='n'>
+                      <thead>
+                        <tr>
+                          <td>상품명</td>
+                          <td>타입</td>
+                          <td>가격</td>
+                          <td>수량</td>
+                          <td>계</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {modalContent.orderDetailList.map((content, i) => (
+                          <tr key={i}>
+                            <td>{content.itemVO.itemName}</td>
+                            <td>{content.typeVO.typeName}</td>
+                            <td>{content.itemVO.price.toLocaleString()}</td>
+                            <td>{content.orderCnt}</td>
+                            <td>{content.detailPrice.toLocaleString()}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>총 가격</td>
+                  <td colSpan={5}>{modalContent.totalPrice.toLocaleString()}</td>
+                </tr>
+              </tbody>
+            )}
+          </table>
+        </div>
+      </div>
+    );
+  }
+
+  function drawFooterContent() {}
+
+  // 모달 닫기 및 페이지 새로고침
+  function handleBtn() {
+    setUpdateModal(false); // 모달 닫기
+  }  
+  // -------------------- 모달 ----------------------
 
   return (
     <div className='ship-container'>
@@ -194,7 +302,10 @@ const ShipManage = () => {
 
                 return (
                   <tr key={i}>
-                    <td className='order-go' onClick={() => {navigate(`/admin/orderDetail/${order.orderNum}`);}}>{order.orderNum}</td>
+                    <td className='order-go' onClick={() => {
+                      // navigate(`/admin/orderDetail/${order.orderNum}`);
+                      ResSelUpdate(order.orderNum);
+                      }}>{order.orderNum}</td>
                     <td>{order.cusVO.cusName}</td>
                     <td className='long-text'>{order.orderDate}</td>
                     <td>{order.totalPrice.toLocaleString()}</td>
@@ -214,6 +325,17 @@ const ShipManage = () => {
           </tbody>
         </table>
       </div>
+
+      {updateModal && (
+        <Modal 
+          content={drawModalContent} 
+          setIsShow={setUpdateModal} 
+          setModifyActive={setModifyActive}
+          clickCloseBtn={handleBtn} 
+          footerContent={drawFooterContent}
+        />
+      )}
+
     </div>
   )
 }
