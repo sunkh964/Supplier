@@ -43,16 +43,20 @@
 .btn-3d {
   position: relative;
   display: inline-block;
-  font-size: 15px;
-  padding: 10px 20px;
+  font-size: 0.8rem;
+  padding: 2px 7px;
   color: white;
-  margin: 10px 10px 10px;
+  margin: 5px 10px 10px 10px;
   border-radius: 6px;
   text-align: center;
   transition: top .01s linear;
   text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+  border: none;
 }
-.btn-3d.blue:hover   {background-color: #699DD1;}
+.btn-3d.blue:hover{
+  background-color: #699DD1;
+  color: #dddddd;
+}
 
 .btn-3d.blue {
   background-color: #6DA2D9;
@@ -61,4 +65,23 @@
         0 8px 0 0 rgba(110, 164, 219, .7),
         0 8px 0 1px rgba(0,0,0,.4),
         0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+/* ==================== 모달 ==================== */
+
+.orderDetail{
+  width: 600px;
+}
+
+.table-div1 > div:first-child{
+  padding: 0px 10px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+}
+
+.table-div1 > div:first-child > span{
+  font-weight: 500;
+  color: rgb(94, 92, 92);
+  letter-spacing: 1px;
 }

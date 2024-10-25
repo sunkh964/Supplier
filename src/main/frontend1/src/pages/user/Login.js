@@ -85,7 +85,8 @@ const Login = ({setLoginInfo}) => {
   </div>
   <div className="login slide-up">
     <div className="center">
-      <h2 className="form-title" id="login" onClick={(e)=>{navigaite('/join')}} ><span>or</span>회원가입</h2>
+      <h2 className="form-title" id="login" onClick={(e)=>{navigaite('/join')}} >
+        <span>or</span>회원가입</h2>
       <div className="form-holder">
       </div>
       <button className="submit-btn">Log in</button>
