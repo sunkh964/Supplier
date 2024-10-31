@@ -5,7 +5,7 @@ const ItemManage = () => {
   return (
     <div className='itemManage'>
       <div className='sales-title'>
-        <i class="bi bi-check-all"></i> 제품관리 <span>- 재고 목록</span>
+        <i className="bi bi-check-all"></i> 제품관리 <span>- 재고 목록</span>
       </div>
     </div>
   )

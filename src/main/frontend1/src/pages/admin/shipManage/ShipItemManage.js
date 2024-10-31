@@ -317,7 +317,7 @@ function handleBtn() {
    return (
       <div className='ship-container'>
       <div className='sales-title'>
-        <sapn><i class="bi bi-check-all"></i></sapn> 출하관리 <span>- 개별 주문 관리</span>
+        <sapn><i className="bi bi-check-all"></i></sapn> 출하관리 <span>- 개별 주문 관리</span>
       </div>
          <div className='top-div'>
             <div className='row'>
@@ -325,11 +325,11 @@ function handleBtn() {
             <div className='sort-div btn-div'>
                <div className='radio-btn'>
                   <input type='radio' id='addr-radio' name='sortValue' className='radio' value='DESC' checked={sortChecked === 'DESC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e);}} />
-                  <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
+                  <label for='addr-radio'>주문 번호 <i className="bi bi-caret-down-fill" /></label>
                </div>
                <div className='radio-btn'>
                   <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e); searchInfoChange(e);}} />
-                  <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
+                  <label for='order-num-radio'>주문 번호 <i className="bi bi-caret-up-fill" /></label>
                </div>
             </div>
             <div className='search-div'>

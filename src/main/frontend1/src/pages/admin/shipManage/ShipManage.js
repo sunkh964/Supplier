@@ -130,7 +130,8 @@ const ShipManage = () => {
 
   // 모달 내용
   function drawModalContent() {
-    const orderDateFormatted = formatDate(orderList.orderDate); // 날짜 포맷팅
+    const orderDateFormatted = formatDate(modalContent.orderDate); // 날짜 포맷팅
+    console.log(orderDateFormatted);
     const randomNumber = generateRandomNumber(); // 임의의 숫자 생성
     const orderNumber = `${orderDateFormatted}-${randomNumber}`; // 최종 주문번호
 
@@ -216,7 +217,7 @@ const ShipManage = () => {
   return (
     <div className='ship-container'>
       <div className='sales-title'>
-        <sapn><i class="bi bi-check-all"></i></sapn> 출하관리 <span>- 주문서 관리</span>
+        <sapn><i className="bi bi-check-all"></i></sapn> 출하관리 <span>- 주문서 관리</span>
       </div>
       <div className='top-div'>
         <div className='row'>
@@ -224,11 +225,11 @@ const ShipManage = () => {
           <div className='sort-div btn-div'>
             <div className='radio-btn'>
               <input type='radio' id='addr-radio' name='sortValue' className='radio' value='DESC' checked={sortChecked === 'DESC'} onChange={(e) => {handleSortChange(e);}} />
-              <label for='addr-radio'>주문 번호 <i class="bi bi-caret-down-fill" /></label>
+              <label for='addr-radio'>주문 번호 <i className="bi bi-caret-down-fill" /></label>
             </div>
             <div className='radio-btn'>
               <input type='radio' id='order-num-radio' name='sortValue' className='radio' value='ASC' checked={sortChecked === 'ASC'} onChange={(e) => {handleSortChange(e);}} />
-              <label for='order-num-radio'>주문 번호 <i class="bi bi-caret-up-fill" /></label>
+              <label for='order-num-radio'>주문 번호 <i className="bi bi-caret-up-fill" /></label>
             </div>
           </div>
           <div className='search-div'>
@@ -304,7 +305,7 @@ const ShipManage = () => {
                   <tr key={i}>
                     <td className='order-go' onClick={() => {
                       // navigate(`/admin/orderDetail/${order.orderNum}`);
-                      ResSelUpdate(order.orderNum);
+                      ResSelUpdate(i+1);
                       }}>{order.orderNum}</td>
                     <td>{order.cusVO.cusName}</td>
                     <td className='long-text'>{order.orderDate}</td>

@@ -80,7 +80,7 @@ const SalesManage = () => {
       <div className='sales-fix'>
         <div className='s'></div>
         <div className='sales-title'>
-          <sapn><i class="bi bi-check-all"></i></sapn> 매출관리
+          <sapn><i className="bi bi-check-all"></i></sapn> 매출관리
         </div>
   
         <div className='sales-2'>
