@@ -134,6 +134,7 @@ const ShipManage = () => {
     console.log(orderDateFormatted);
     const randomNumber = generateRandomNumber(); // 임의의 숫자 생성
     const orderNumber = `${orderDateFormatted}-${randomNumber}`; // 최종 주문번호
+    console.log(modalContent);
 
     return (
       <div className='orderDetail'>
