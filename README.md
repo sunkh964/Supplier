@@ -20,7 +20,7 @@ React를 이용해 병원에 의료용품을 납품하는 가상의 공급사 '�
    - 공급사 → 병원: 
      - 병원 측의 주문서 확인
      - 주문서의 상세 내역과 공급사 측 재고 비교
-     - 배송 현황 업데이트
+     - 배송 현황 업데이트, 주문서·주문서 내 상세 품목 배송 현황 일치하도록 자동화
 2. 1차 프로젝트인 <u>**[병원 입고 관리 웹 페이지](https://github.com/sunkh964/Team3)**</u>와 연동
    - 병원 → 공급사:
      -  병원에서 공급사에 물품 발주 신청
@@ -63,7 +63,7 @@ React를 이용해 병원에 의료용품을 납품하는 가상의 공급사 '�
 | ![3_주문서정렬및검색](https://github.com/user-attachments/assets/335d1327-08a0-40de-8e32-ed699e7a88ab) | ![3_주문서출하](https://github.com/user-attachments/assets/71bab562-55a2-4cd7-9f71-6f931599b123) |
 | // 설명 | // 설명 |
 
-| 상세품목 정렬 및 검색 | 상세품목 상태 일치 |
+| 상세품목 정렬 및 검색 | 상세품목 주문 취소 및 상태 일치 |
 | --- | --- |
 | ![3_세부품목정렬및검색](https://github.com/user-attachments/assets/a20f6d5e-531e-4e3e-8672-1204a2c453bf) | ![3_세부품목상태일치](https://github.com/user-attachments/assets/fcb039f7-8b87-48af-93d5-b271550a2e4f) |
 | // 설명 | // 설명 |
